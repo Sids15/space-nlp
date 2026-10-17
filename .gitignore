@@ -5,3 +5,5 @@ data/raw/
 # regenerable caches (python src/parsed.py, src/entities.py)
 data/processed/*.spacy
 data/entities/
+# annotator exports stay local until double annotation is finished (keeps annotators independent)
+data/gold/exports/
