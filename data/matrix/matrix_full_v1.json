@@ -41,7 +41,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "severe ionospheric storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2016JGRA..121.7941N",
@@ -111,7 +111,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "geomagnetic storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2022JGRA..12729843A",
@@ -131,7 +131,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Geomagnetic storm",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2022SpWea..2003114L",
@@ -141,7 +141,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "geomagnetic storm",
-    "system_text": "global navigation satellite system"
+    "system_text": "global navigation satellite system (GNSS)"
    },
    {
     "bibcode": "2022icdi.conf...48K",
@@ -161,7 +161,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "geomagnetic storm",
-    "system_text": "global navigation satellite systems"
+    "system_text": "global navigation satellite systems (GNSS)"
    },
    {
     "bibcode": "2024JASTP.25906238L",
@@ -191,7 +191,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Geomagnetic storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2025ITAES..61.8594W",
@@ -201,7 +201,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Geomagnetic storms",
-    "system_text": "global navigation satellite system"
+    "system_text": "global navigation satellite system (GNSS)"
    },
    {
     "bibcode": "2025ITAES..61.8594W",
@@ -241,7 +241,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "geomagnetic storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2025RvBGF..18.1697D",
@@ -251,7 +251,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "great geomagnetic storms",
-    "system_text": "Precise Point Positioning"
+    "system_text": "Precise Point Positioning (PPP)"
    },
    {
     "bibcode": "2026AdSpR..77.5254W",
@@ -290,7 +290,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "2 geomagnetic storms",
+    "event_text": "geomagnetic storms",
     "system_text": "GPS signal"
    },
    {
@@ -310,7 +310,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "January 7, 2015 storm",
+    "event_text": "storm",
     "system_text": "GPS precise positioning"
    },
    {
@@ -321,7 +321,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic disturbances",
-    "system_text": "Precise Point Positioning"
+    "system_text": "Precise Point Positioning (PPP)"
    },
    {
     "bibcode": "2017ursi.conf...90J",
@@ -351,7 +351,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic disturbances",
-    "system_text": "Precise Point Positioning"
+    "system_text": "Precise Point Positioning (PPP)"
    },
    {
     "bibcode": "2019actm.conf....8G",
@@ -411,7 +411,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic storm",
-    "system_text": "global navigation satellite system"
+    "system_text": "global navigation satellite system (GNSS)"
    },
    {
     "bibcode": "2020plan.conf...28Y",
@@ -451,7 +451,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "storm",
-    "system_text": "global navigation satellite system"
+    "system_text": "global navigation satellite system (GNSS)"
    },
    {
     "bibcode": "2022SurRv..54..254Y",
@@ -501,7 +501,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic storm",
-    "system_text": "precise point positioning"
+    "system_text": "precise point positioning (PPP)"
    },
    {
     "bibcode": "2023SpWea..2103542L",
@@ -531,7 +531,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "storms",
-    "system_text": "precise point positioning"
+    "system_text": "standard point positioning"
    },
    {
     "bibcode": "2024SpWea..2203946Y",
@@ -541,7 +541,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "severe geomagnetic storms",
-    "system_text": "kinematic precise point positioning"
+    "system_text": "kinematic precise point positioning (PPP)"
    },
    {
     "bibcode": "2025AdSpR..75.5523C",
@@ -561,7 +561,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "Geomagnetic storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2025ITAES..61.8594W",
@@ -581,7 +581,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS Precise Point Positioning"
+    "system_text": "GNSS Precise Point Positioning (PPP)"
    },
    {
     "bibcode": "2025RemS...17.2933B",
@@ -591,7 +591,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic storm",
-    "system_text": "global navigation satellite system"
+    "system_text": "global navigation satellite system (GNSS)"
    },
    {
     "bibcode": "2025RvBGF..18.1697D",
@@ -621,7 +621,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "storm",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2025spac.conf.1007H",
@@ -721,7 +721,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "severe geomagnetic storm",
-    "system_text": "Global Positioning System"
+    "system_text": "Global Positioning System (GPS)"
    },
    {
     "bibcode": "2019ursi.conf..633Y",
@@ -821,7 +821,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "severe geomagnetic storms",
-    "system_text": "Global Positioning System"
+    "system_text": "Global Positioning System (GPS)"
    },
    {
     "bibcode": "2026AdSpR..78.2744W",
@@ -850,8 +850,8 @@
     "effect": "degradation",
     "method": "dep_prep",
     "confidence": 0.7,
-    "event_text": "10─11 May 2024 geomagnetic storm",
-    "system_text": "global positioning system"
+    "event_text": "─11 May 2024 geomagnetic storm",
+    "system_text": "global positioning system (GPS)"
    },
    {
     "bibcode": "2001JGR...10630389B",
@@ -911,7 +911,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "ionospheric storm",
-    "system_text": "ground-based Global Positioning System"
+    "system_text": "ground-based Global Positioning System (GPS)"
    },
    {
     "bibcode": "2014SpWea..12..508A",
@@ -941,7 +941,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "strong geomagnetic storm",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2019AdSpR..63..239B",
@@ -950,7 +950,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "second storm",
+    "event_text": "storm",
     "system_text": "GPS"
    },
    {
@@ -1201,7 +1201,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "Geomagnetic storms",
-    "system_text": "Global Navigation Satellite System"
+    "system_text": "Global Navigation Satellite System (GNSS)"
    },
    {
     "bibcode": "2025RemS...17.2027F",
@@ -1231,7 +1231,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "moderate geomagnetic storm",
-    "system_text": "BeiDou Navigation Satellite System"
+    "system_text": "single-point positioning"
    },
    {
     "bibcode": "2025SpWea..2304547Y",
@@ -1241,7 +1241,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "unprecedented storm",
-    "system_text": "high accuracy Global Positioning System"
+    "system_text": "high accuracy Global Positioning System (GPS)"
    },
    {
     "bibcode": "2025SpWea..2304547Y",
@@ -1288,15 +1288,15 @@
  {
   "event": "geomagnetic_storm",
   "system": "hf_radio",
-  "papers": 19,
+  "papers": 20,
   "by_effect": {
    "degradation": 15,
-   "outage": 4,
+   "outage": 5,
    "no_effect": 0,
    "mitigated": 1
   },
   "majority": "degradation",
-  "agreement": 0.75,
+  "agreement": 0.714,
   "status": "mixed",
   "evidence": [
    {
@@ -1410,6 +1410,16 @@
     "system_text": "Radio Blackouts"
    },
    {
+    "bibcode": "2025SpWea..2304113E",
+    "sentence_id": 1,
+    "sentence": "This event evolved into a significant space weather event, including an \"extreme\" (G5) geomagnetic storm, moderate (S2) solar radiation storm, and strong (R3) radio blackout.",
+    "effect": "outage",
+    "method": "dep_nominal",
+    "confidence": 0.75,
+    "event_text": "geomagnetic storm",
+    "system_text": "strong (R3) radio blackout"
+   },
+   {
     "bibcode": "2025plan.conf..486M",
     "sentence_id": 1,
     "sentence": "In this study, we analyze the effects of this storm on Global Navigation Satellite System (GNSS) signals using a Software-Defined Radio (SDR)-based receiver at a location in North Italy.",
@@ -1487,7 +1497,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "geomagnetic storms",
-    "system_text": "polar cap absorption"
+    "system_text": "polar cap absorption (PCA)"
    },
    {
     "bibcode": "2025FrASS..1122139O",
@@ -1496,7 +1506,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "10 October 2024 geomagnetic storm",
+    "event_text": "October 2024 geomagnetic storm",
     "system_text": "short communication"
    },
    {
@@ -1514,15 +1524,15 @@
  {
   "event": "geomagnetic_storm",
   "system": "satellites",
-  "papers": 25,
+  "papers": 24,
   "by_effect": {
    "degradation": 21,
-   "outage": 3,
+   "outage": 2,
    "no_effect": 0,
    "mitigated": 1
   },
   "majority": "degradation",
-  "agreement": 0.84,
+  "agreement": 0.875,
   "status": "agree",
   "evidence": [
    {
@@ -1603,7 +1613,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "storm",
-    "system_text": "40 satellites"
+    "system_text": "satellites"
    },
    {
     "bibcode": "2024SpWea..2204054C",
@@ -1643,7 +1653,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar geomagnetic storm",
-    "system_text": "49 satellites"
+    "system_text": "satellites"
    },
    {
     "bibcode": "2022icus.conf..195Y",
@@ -1673,17 +1683,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "moderate geomagnetic storms",
-    "system_text": "49 SpaceX Starlink satellites"
-   },
-   {
-    "bibcode": "2023JASTP.24906106S",
-    "sentence_id": 1,
-    "sentence": "When the fast CMEs are ejected towards the Earth, they can disrupt the flow of solar wind in the heliosphere and impact the Earth's magnetosphere causing known space weather phenomena such as, geomagnetic storms, auroras, communication blackouts, satellite drag and failures.",
-    "effect": "outage",
-    "method": "dep_nominal",
-    "confidence": 0.75,
-    "event_text": "geomagnetic storms",
-    "system_text": "satellite drag"
+    "system_text": "SpaceX Starlink satellites"
    },
    {
     "bibcode": "2024FrASS..1193917K",
@@ -1712,7 +1712,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "10 October 2024 geomagnetic storm",
+    "event_text": "October 2024 geomagnetic storm",
     "system_text": "Starlink satellite"
    },
    {
@@ -1733,7 +1733,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic activity",
-    "system_text": "523 Starlink satellites"
+    "system_text": "Starlink satellites"
    },
    {
     "bibcode": "2025SpWea..2304608W",
@@ -1909,7 +1909,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "GMDs",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2013pesm.conf..816S",
@@ -1918,8 +1918,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "event_text": "Geomagnetic disturbances (GMDs)",
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2015JASS...32..427C",
@@ -1938,8 +1938,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "event_text": "Geomagnetic disturbances (GMDs)",
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2017JASS...34..315C",
@@ -1959,7 +1959,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "GMDs",
-    "system_text": "quasi-direct geomagnetically induced currents"
+    "system_text": "quasi-direct geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2017tpec.conf...12B",
@@ -1968,8 +1968,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "event_text": "geomagnetic disturbances (GMDs)",
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2017tpec.conf...12B",
@@ -1999,7 +1999,7 @@
     "method": "dep_passive",
     "confidence": 0.9,
     "event_text": "geomagnetic disturbances",
-    "system_text": "Geomagnetically induced currents"
+    "system_text": "Geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2019tpec.conf...15J",
@@ -2008,8 +2008,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbance",
-    "system_text": "Geomagnetically Induced Currents"
+    "event_text": "Geomagnetic disturbance (GMD)",
+    "system_text": "Geomagnetically Induced Currents (GICs)"
    },
    {
     "bibcode": "2020IOJIA..56.1098W",
@@ -2019,7 +2019,7 @@
     "method": "dep_passive",
     "confidence": 0.9,
     "event_text": "geomagnetic disturbances",
-    "system_text": "Geomagnetically induced currents"
+    "system_text": "Geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2020SpWea..1802387R",
@@ -2029,7 +2029,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Large geomagnetic storms",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2020eecm.conf...91M",
@@ -2038,7 +2038,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbance",
+    "event_text": "Geomagnetic disturbance (GMD)",
     "system_text": "power system"
    },
    {
@@ -2078,7 +2078,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic Disturbances",
+    "event_text": "Geomagnetic Disturbances (GMDs)",
     "system_text": "power grid"
    },
    {
@@ -2088,7 +2088,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbances",
+    "event_text": "Geomagnetic disturbances (GMD)",
     "system_text": "power systems"
    },
    {
@@ -2119,7 +2119,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "geomagnetic disturbances",
-    "system_text": "power grid"
+    "system_text": "transformers"
    },
    {
     "bibcode": "2023pesg.conf..452A",
@@ -2128,8 +2128,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Space weather-driven geomagnetic disturbances",
-    "system_text": "quasi-DC geomagnetically-induced currents"
+    "event_text": "Space weather-driven geomagnetic disturbances (GMD)",
+    "system_text": "quasi-DC geomagnetically-induced currents (GIC)"
    },
    {
     "bibcode": "2024SpWea..2203879C",
@@ -2139,7 +2139,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Large geomagnetic storms",
-    "system_text": "Geomagnetically Induced Currents"
+    "system_text": "Geomagnetically Induced Currents (GICs)"
    },
    {
     "bibcode": "2024icps.conf...10S",
@@ -2149,7 +2149,7 @@
     "method": "dep_svo",
     "confidence": 0.9,
     "event_text": "Geomagnetic disturbances",
-    "system_text": "large geomagnetically induced currents"
+    "system_text": "large geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2024pesg.conf..129A",
@@ -2158,7 +2158,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Space weather-induced geomagnetic disturbances",
+    "event_text": "Space weather-induced geomagnetic disturbances (GMDs)",
     "system_text": "geomagnetically-induced current (GIC"
    },
    {
@@ -2188,7 +2188,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Geomagnetic disturbances",
+    "event_text": "Geomagnetic disturbances (GMDs)",
     "system_text": "geomagnetically induced current (GIC"
    },
    {
@@ -2198,8 +2198,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Strong geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "event_text": "Strong geomagnetic disturbances (GMDs)",
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2026cosp...46.3416Z",
@@ -2229,7 +2229,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic storm",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GIC)"
    },
    {
     "bibcode": "2011elcn.conf..961G",
@@ -2248,7 +2248,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "geomagnetic disturbances",
+    "event_text": "geomagnetic disturbances (GMDs)",
     "system_text": "power system"
    },
    {
@@ -2329,7 +2329,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic disturbances",
-    "system_text": "400─230-kV power grid"
+    "system_text": "─230-kV power grid"
    },
    {
     "bibcode": "2018ITPSy..33.2539L",
@@ -2338,7 +2338,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "geomagnetic disturbances",
+    "event_text": "geomagnetic disturbances (GMDs)",
     "system_text": "power systems"
    },
    {
@@ -2398,7 +2398,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "geomagnetic disturbances",
+    "event_text": "geomagnetic disturbances (GMDs)",
     "system_text": "power systems"
    },
    {
@@ -2439,7 +2439,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic activity",
-    "system_text": "13 power station transformers"
+    "system_text": "power station transformers"
    },
    {
     "bibcode": "2023E3SWC.47001024V",
@@ -2449,7 +2449,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2023IEEEA..1198706K",
@@ -2458,7 +2458,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "extreme geomagnetic disturbance",
+    "event_text": "extreme geomagnetic disturbance (GMD)",
     "system_text": "power networks"
    },
    {
@@ -2529,7 +2529,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "geomagnetic disturbance",
-    "system_text": "power grid"
+    "system_text": "high voltage transformers"
    },
    {
     "bibcode": "2013pesm.conf..313L",
@@ -2539,7 +2539,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "geomagnetic storms",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GIC)"
    },
    {
     "bibcode": "2017pesg.conf..600F",
@@ -2559,7 +2559,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "geomagnetic disturbances",
-    "system_text": "Geomagnetically-induced currents"
+    "system_text": "Geomagnetically-induced currents (GICs)"
    },
    {
     "bibcode": "2020SpWea..1802580M",
@@ -2578,8 +2578,8 @@
     "effect": "degradation",
     "method": "dep_prep",
     "confidence": 0.7,
-    "event_text": "Geomagnetic Disturbances",
-    "system_text": "Geomagnetically Induced Currents"
+    "event_text": "Geomagnetic Disturbances (GMDs)",
+    "system_text": "Geomagnetically Induced Currents (GICs)"
    },
    {
     "bibcode": "2021SpWea..1902615W",
@@ -2638,8 +2638,8 @@
     "effect": "degradation",
     "method": "dep_prep",
     "confidence": 0.7,
-    "event_text": "geomagnetic disturbances",
-    "system_text": "intense geomagnetically induced currents"
+    "event_text": "geomagnetic disturbances (GMDs)",
+    "system_text": "intense geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2025GeoRL..5212749C",
@@ -2658,7 +2658,7 @@
     "effect": "degradation",
     "method": "dep_prep",
     "confidence": 0.7,
-    "event_text": "severe geomagnetic disturbances",
+    "event_text": "severe geomagnetic disturbances (GMDs)",
     "system_text": "transformers"
    },
    {
@@ -2699,7 +2699,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "strong magnetic storms",
-    "system_text": "GICs"
+    "system_text": "large energy grids"
    },
    {
     "bibcode": "2026SpWea..2404788W",
@@ -2798,7 +2798,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "Geomagnetic disturbances",
+    "event_text": "Geomagnetic disturbances (GMD)",
     "system_text": "GICs"
    },
    {
@@ -2888,7 +2888,7 @@
     "effect": "mitigated",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "geomagnetic disturbances",
+    "event_text": "geomagnetic disturbances (GMDs)",
     "system_text": "GIC"
    },
    {
@@ -2898,7 +2898,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "geomagnetic disturbances",
+    "event_text": "geomagnetic disturbances (GMDs)",
     "system_text": "GIC"
    },
    {
@@ -2999,7 +2999,7 @@
     "method": "dep_path",
     "confidence": 0.6,
     "event_text": "geomagnetic disturbances",
-    "system_text": "geomagnetically induced currents"
+    "system_text": "geomagnetically induced currents (GICs)"
    },
    {
     "bibcode": "2026SpWea..2404889P",
@@ -3044,8 +3044,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "associated solar radio bursts",
-    "system_text": "Global Positioning System"
+    "event_text": "associated solar radio bursts (SRB)",
+    "system_text": "Global Positioning System (GPS)"
    },
    {
     "bibcode": "2015SpWea..13..698R",
@@ -3054,7 +3054,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "solar radio burst",
+    "event_text": "solar radio burst (SRB)",
     "system_text": "GNSS signal"
    },
    {
@@ -3115,7 +3115,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar flare",
-    "system_text": "ground-based global positioning system"
+    "system_text": "ground-based global positioning system (GPS)"
    },
    {
     "bibcode": "2008JASTP..70.1985A",
@@ -3125,7 +3125,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar radio bursts",
-    "system_text": "global positioning system"
+    "system_text": "global positioning system (GPS)"
    },
    {
     "bibcode": "2016ISPAr62W1..167I",
@@ -3135,7 +3135,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar flare",
-    "system_text": "Global Positioning System"
+    "system_text": "Global Positioning System (GPS)"
    },
    {
     "bibcode": "2019RaSc...54...91C",
@@ -3255,7 +3255,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "intense solar radio bursts",
-    "system_text": "Global Navigation Satellite Systems"
+    "system_text": "Global Navigation Satellite Systems (GNSS)"
    },
    {
     "bibcode": "2022cosp...44..612P",
@@ -3284,7 +3284,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "1) Solar radio bursts",
+    "event_text": "Solar radio bursts",
     "system_text": "GNSS navigation"
    },
    {
@@ -3332,15 +3332,15 @@
  {
   "event": "sep_event",
   "system": "hf_radio",
-  "papers": 23,
+  "papers": 21,
   "by_effect": {
    "degradation": 12,
-   "outage": 12,
+   "outage": 10,
    "no_effect": 0,
    "mitigated": 0
   },
   "majority": "degradation",
-  "agreement": 0.5,
+  "agreement": 0.545,
   "status": "mixed",
   "evidence": [
    {
@@ -3390,7 +3390,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "Solar energetic particles",
+    "event_text": "Solar energetic particles (SEPs)",
     "system_text": "radio communication"
    },
    {
@@ -3451,7 +3451,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "huge solar proton event",
-    "system_text": "polar cap absorption"
+    "system_text": "polar cap absorption (PCA)"
    },
    {
     "bibcode": "2022JGRA..12730342C",
@@ -3461,17 +3461,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar flare",
-    "system_text": "Short-Wave Fadeout"
-   },
-   {
-    "bibcode": "2024cosp...45.2888F",
-    "sentence_id": 0,
-    "sentence": "The existing NOAA Space Weather Scale for Geomagnetic Storms (G), Radio Blackouts (R), and Solar Radiation Storms (S) serve a number of user groups affected by space weather.",
-    "effect": "outage",
-    "method": "dep_nominal",
-    "confidence": 0.75,
-    "event_text": "Solar Radiation Storms",
-    "system_text": "Radio Blackouts"
+    "system_text": "Short-Wave Fadeout (SWF)"
    },
    {
     "bibcode": "2024cosp...45.2890J",
@@ -3481,17 +3471,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar radiation storms",
-    "system_text": "radio blackouts"
-   },
-   {
-    "bibcode": "2025SpWea..2304113E",
-    "sentence_id": 1,
-    "sentence": "This event evolved into a significant space weather event, including an \"extreme\" (G5) geomagnetic storm, moderate (S2) solar radiation storm, and strong (R3) radio blackout.",
-    "effect": "outage",
-    "method": "dep_nominal",
-    "confidence": 0.75,
-    "event_text": "extreme\" (G5) geomagnetic storm, moderate (S2) solar radiation storm",
-    "system_text": "strong (R3) radio blackout"
+    "system_text": "HF propagation"
    },
    {
     "bibcode": "2026KPCB...42..101P",
@@ -3510,7 +3490,7 @@
     "effect": "degradation",
     "method": "dep_prep",
     "confidence": 0.7,
-    "event_text": "solar proton events",
+    "event_text": "solar proton events (SPE)",
     "system_text": "HF radio"
    },
    {
@@ -3521,7 +3501,7 @@
     "method": "dep_prep",
     "confidence": 0.7,
     "event_text": "flare",
-    "system_text": "shortwave radio blackout"
+    "system_text": "shortwave radio blackout (R3 - Strong Radio Blackout)"
    },
    {
     "bibcode": "2026JGRA..13134512T",
@@ -3540,7 +3520,7 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "11 larger solar energetic particle events",
+    "event_text": "larger solar energetic particle events",
     "system_text": "polar cap absorption"
    },
    {
@@ -3636,8 +3616,8 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "SPE",
-    "system_text": "single event effect"
+    "event_text": "solar particle event (SPE)",
+    "system_text": "single event effect (SEE)"
    },
    {
     "bibcode": "2014JPhCS.539a2023S",
@@ -3646,7 +3626,7 @@
     "effect": "degradation",
     "method": "dep_svo",
     "confidence": 0.9,
-    "event_text": "solar proton events",
+    "event_text": "solar proton events (SPEs)",
     "system_text": "LEO spacecraft"
    },
    {
@@ -3666,7 +3646,7 @@
     "effect": "degradation",
     "method": "dep_passive",
     "confidence": 0.9,
-    "event_text": "Solar Energetic Particles",
+    "event_text": "Solar Energetic Particles (SEPs)",
     "system_text": "SEUs"
    },
    {
@@ -3687,7 +3667,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar particle events",
-    "system_text": "single-event effects"
+    "system_text": "single-event effects (SEEs)"
    },
    {
     "bibcode": "2009SpWea...7.9003O",
@@ -3697,7 +3677,7 @@
     "method": "dep_nominal",
     "confidence": 0.75,
     "event_text": "solar particle events",
-    "system_text": "internal charging, single-event effects"
+    "system_text": "internal charging"
    },
    {
     "bibcode": "2013spsc.conf...10T",
@@ -3726,7 +3706,7 @@
     "effect": "degradation",
     "method": "dep_nominal",
     "confidence": 0.75,
-    "event_text": "solar particle events",
+    "event_text": "solar particle events (SPEs)",
     "system_text": "DoD satellites"
    },
    {
@@ -3756,8 +3736,8 @@
     "effect": "degradation",
     "method": "dep_path",
     "confidence": 0.6,
-    "event_text": "ground level enhancements",
-    "system_text": "single event upset"
+    "event_text": "ground level enhancements (GLEs)",
+    "system_text": "single event upset (SEU)"
    }
   ]
  },

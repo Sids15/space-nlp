@@ -116,7 +116,7 @@ class Tagger:
             chunk = next((c for c in chunks if c.start <= span.start and span.end <= c.end), None)
             if chunk is not None and (chunk.root.lemma_.lower() in HEADS or span.start <= chunk.root.i < span.end):
                 inside = {(x.label, x.canonical) for x in triggers if chunk.start <= x.span.start and x.span.end <= chunk.end}
-                coordinated = any(tok.pos_ == "CCONJ" for tok in chunk)  # "GPS and HF communication"
+                coordinated = any(tok.pos_ == "CCONJ" or tok.text == "," for tok in chunk)  # "GPS and HF", "G5 storm, S2 storm"
                 if len({lab for lab, _ in inside}) == 1 and not coordinated:  # never merge an EVENT and a SYSTEM
                     span = _trim(chunk, protect)
             groups.setdefault((span.start, span.end), []).append(t)
@@ -144,7 +144,7 @@ class Tagger:
                 continue
             found.append(_entity(span, head.label, canonical, source))
         keep = {(s.start, s.end) for s in filter_spans([e["_span"] for e in found])}
-        return [e for e in found if (e["_span"].start, e["_span"].end) in keep]
+        return _merge_acronyms(doc, [e for e in found if (e["_span"].start, e["_span"].end) in keep])
 
 
 def wsd_domain_words(grouper, topn=100):
@@ -173,11 +173,32 @@ def _trim(span, protect=frozenset()):
     """Drop leading determiners/adverbs/quantity words and trailing punctuation, but never a
     token that belongs to a gazetteer or head match ("Geomagnetically induced currents")."""
     doc, start, end = span.doc, span.start, span.end
-    while start < end - 1 and start not in protect and (doc[start].pos_ in TRIM_POS or doc[start].lower_ in QUANTIFIERS):
+    while start < end - 1 and start not in protect and (doc[start].pos_ in TRIM_POS or doc[start].lower_ in QUANTIFIERS
+                                                                     or _is_count(doc[start])):
         start += 1
     while end > start + 1 and doc[end - 1].pos_ == "PUNCT":
         end -= 1
     return doc[start:end]
+
+
+def _merge_acronyms(doc, found):
+    """'Global Positioning System (GPS)' is one mention: join a name and the bracketed acronym right after it."""
+    found = sorted(found, key=lambda e: e["_span"].start)
+    out = []
+    for e in found:
+        prev = out[-1]["_span"] if out else None
+        sp = e["_span"]
+        if (prev is not None and out[-1]["canonical"] == e["canonical"] and sp.start == prev.end + 1
+                and doc[prev.end].text == "(" and sp.end < len(doc) and doc[sp.end].text == ")"):
+            out[-1] = _entity(doc[prev.start:sp.end + 1], out[-1]["label"], out[-1]["canonical"], out[-1]["source"])
+        else:
+            out.append(e)
+    return out
+
+
+def _is_count(tok):
+    """'40 satellites' drops the count; '2003 Halloween storm' keeps the year."""
+    return tok.like_num and not (len(tok.text) == 4 and tok.text.isdigit() and 1700 <= int(tok.text) <= 2099)
 
 
 def _entity(span, label, canonical, source):

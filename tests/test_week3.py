@@ -32,6 +32,16 @@ def test_event_and_system_never_merged():
     assert ("intense geomagnetic storm", "geomagnetic_storm") in got and ("GPS", "gnss") in got
 
 
+
+def test_guideline_boundaries():
+    assert ("Global Positioning System (GPS)", "gnss") in tags("The storm degraded the Global Positioning System (GPS).")
+    assert ("Geomagnetic Disturbances (GMDs)", "geomagnetic_storm") in tags("Geomagnetic Disturbances (GMDs) damage the power grid.")
+    got = tags("The 2003 Halloween storm hit 40 satellites.")
+    assert ("2003 Halloween storm", "geomagnetic_storm") in got and ("satellites", "satellites") in got  # year stays, count goes
+    got = tags("The storm hit LEO satellites, GEO satellites and GPS.")
+    assert not any("," in text for text, _ in got)  # never one highlight across a comma
+
+
 def test_wsd_rejects_off_domain_senses():
     assert tags("A tropical storm with heavy rain and hurricane winds hit the coast.") == []
     assert tags("The model was run on a 1 degree grid with fine horizontal spacing.") == []

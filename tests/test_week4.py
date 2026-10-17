@@ -18,6 +18,7 @@ def triples(text, **kw):
 
 
 CASES = {
+    "Geomagnetic storms, solar radiation storms and radio blackouts are classified by NOAA.": set(),  # a list, no cause
     "The geomagnetic storm severely degraded GPS positioning accuracy.": {("geomagnetic_storm", "gnss", "degradation")},
     "GPS positioning was degraded by the geomagnetic storm.": {("geomagnetic_storm", "gnss", "degradation")},
     "The storm did not affect the power grid.": {("geomagnetic_storm", "power_grid", "no_effect")},

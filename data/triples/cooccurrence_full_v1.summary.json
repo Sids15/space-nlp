@@ -1,20 +1,20 @@
 {
   "run": "cooccurrence_full",
-  "triples": 2059,
+  "triples": 1759,
   "by_effect": {
-    "degradation": 2059
+    "degradation": 1759
   },
   "by_method": {
-    "cooccurrence": 2059
+    "cooccurrence": 1759
   },
   "by_pair": {
-    "geomagnetic_storm|power_grid": 745,
-    "geomagnetic_storm|gnss": 698,
-    "sep_event|gnss": 209,
-    "geomagnetic_storm|satellites": 164,
-    "sep_event|satellites": 103,
-    "sep_event|hf_radio": 82,
+    "geomagnetic_storm|gnss": 602,
+    "geomagnetic_storm|power_grid": 600,
+    "sep_event|gnss": 182,
+    "geomagnetic_storm|satellites": 160,
+    "sep_event|satellites": 85,
+    "sep_event|hf_radio": 73,
     "geomagnetic_storm|hf_radio": 50,
-    "sep_event|power_grid": 8
+    "sep_event|power_grid": 7
   }
 }

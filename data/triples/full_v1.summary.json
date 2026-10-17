@@ -1,26 +1,26 @@
 {
   "run": "full",
-  "triples": 590,
+  "triples": 477,
   "by_effect": {
-    "degradation": 544,
-    "outage": 34,
-    "mitigated": 11,
+    "degradation": 439,
+    "outage": 29,
+    "mitigated": 8,
     "no_effect": 1
   },
   "by_method": {
-    "dep_path": 172,
-    "dep_nominal": 165,
-    "dep_svo": 162,
-    "dep_prep": 82,
-    "dep_passive": 9
+    "dep_path": 157,
+    "dep_nominal": 134,
+    "dep_svo": 117,
+    "dep_prep": 63,
+    "dep_passive": 6
   },
   "by_pair": {
-    "geomagnetic_storm|power_grid": 230,
-    "geomagnetic_storm|gnss": 191,
-    "sep_event|gnss": 47,
-    "geomagnetic_storm|satellites": 41,
-    "sep_event|hf_radio": 36,
-    "sep_event|satellites": 24,
-    "geomagnetic_storm|hf_radio": 21
+    "geomagnetic_storm|power_grid": 170,
+    "geomagnetic_storm|gnss": 161,
+    "sep_event|gnss": 41,
+    "geomagnetic_storm|satellites": 40,
+    "sep_event|hf_radio": 26,
+    "geomagnetic_storm|hf_radio": 22,
+    "sep_event|satellites": 17
   }
 }

@@ -138,6 +138,9 @@ def classify(event_span, system_span, use_negation=True):
     path = dep_path(event_span.root, system_span.root)
     if path is None or len(path) - 1 > MAX_PATH:
         return None
+    top = min(path, key=lambda t: len(list(t.ancestors)))
+    if all(t.dep_ in ("conj", "appos") for t in path if t is not top):
+        return None  # items of one list ("a G5 storm, an S2 storm and an R3 blackout") are not a cause
     region = [t for t in path if t.i not in range(event_span.start, event_span.end)] + governors(path)
     cues = [(t, lab) for t in region if (lab := _cue_label(t))]
     if not cues:
