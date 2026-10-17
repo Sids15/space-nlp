@@ -1,0 +1,7 @@
+.env
+__pycache__/
+data/raw/
+.venv/
+# regenerable caches (python src/parsed.py, src/entities.py)
+data/processed/*.spacy
+data/entities/
