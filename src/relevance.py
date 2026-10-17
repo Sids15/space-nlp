@@ -73,11 +73,16 @@ def score(records, seeds):
     }
 
 
+def safe_cell(value):
+    """Corpus text opened in Excel: a cell starting with = + - @ would run as a formula, so quote it."""
+    return "'" + value if isinstance(value, str) and value[:1] in ("=", "+", "-", "@", "\t", "\r") else value
+
+
 def write_csv(path, rows, fields):
     with path.open("w", encoding="utf-8-sig", newline="") as f:  # utf-8-sig opens cleanly in Excel
         writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows({k: safe_cell(v) for k, v in r.items()} for r in rows)
 
 
 def run(version, threshold):

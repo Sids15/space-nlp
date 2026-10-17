@@ -23,6 +23,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import normalize
 
 from domain import EVENTS, PHRASES, SYSTEMS
+from relevance import write_csv
 
 ROOT = Path(__file__).resolve().parent.parent
 RET_DIR = ROOT / "data" / "retrieval"
@@ -112,10 +113,8 @@ def pool(version, k):
             rows.append({"query_id": qid, "query": query, "bibcode": bib, "sid": sid,
                          "relevant": old.get((str(qid), bib, str(sid)), ""), "text": v["text"]})
     RET_DIR.mkdir(parents=True, exist_ok=True)
-    with out.open("w", encoding="utf-8-sig", newline="") as f:  # system names hidden from the judge
-        w = csv.DictWriter(f, fieldnames=["query_id", "query", "bibcode", "sid", "relevant", "text"])
-        w.writeheader()
-        w.writerows(rows)
+    # system names are hidden from the judge
+    write_csv(out, rows, ["query_id", "query", "bibcode", "sid", "relevant", "text"])
     print(f"{len(rows)} pooled sentences for {len(EVAL_QUERIES)} queries -> {out.relative_to(ROOT)}")
 
 

@@ -1,6 +1,6 @@
 """Stage 5: synonym grouping. Maps surface terms to the canonical labels in domain.py.
 
-Usage:  python src/synonyms.py [--version v1] [--glove]
+Usage:  python src/synonyms.py [--version v1] [--glove path/to/glove.6B.100d.txt]
 
 Three sources, each usable on its own so they can be compared:
   acronyms  corpus abbreviation definitions ("Indian Regional Navigation Satellite System (IRNSS)")
@@ -179,9 +179,9 @@ def neighbours(wv, canonical_vec, n=10):
     return [w for w, _ in wv.similar_by_vector(canonical_vec, topn=n)]
 
 
-def glove_comparison(grouper):
-    import gensim.downloader
-    glove = gensim.downloader.load("glove-wiki-gigaword-100")  # ~130 MB, cached in ~/gensim-data
+def glove_comparison(grouper, path):
+    # plain-text vectors only: gensim.downloader runs Python fetched from the internet, so it is not used
+    glove = KeyedVectors.load_word2vec_format(str(path), binary=False, no_header=True)
     words = sorted({w for phrases in PHRASES.values() for p in phrases for w in tokenize(p)})
     out = {"glove_oov_rate": round(sum(w not in glove for w in words) / len(words), 3),
            "w2v_oov_rate": round(sum(w not in grouper.wv for w in words) / len(words), 3),
@@ -198,7 +198,8 @@ def glove_comparison(grouper):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--version", default="v1")
-    parser.add_argument("--glove", action="store_true", help="also compare against pretrained GloVe")
+    parser.add_argument("--glove", type=Path, metavar="GLOVE_TXT",
+                        help="also compare against pretrained GloVe, e.g. glove.6B.100d.txt from nlp.stanford.edu/projects/glove")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     logging.getLogger("gensim").setLevel(logging.WARNING)
@@ -214,7 +215,9 @@ def main():
         "w2v_neighbours": {c: neighbours(wv, v, 15) for c, v in grouper.prototypes.items()},
     }
     if args.glove:
-        lexicon["glove_comparison"] = glove_comparison(grouper)
+        if not args.glove.is_file():
+            sys.exit(f"{args.glove} not found. Download glove.6B.zip from nlp.stanford.edu/projects/glove and unzip it.")
+        lexicon["glove_comparison"] = glove_comparison(grouper, args.glove)
     (LEX_DIR / f"lexicon_{args.version}.json").write_text(json.dumps(lexicon, indent=2), encoding="utf-8")
     log.info("Vocab %d; %d learned acronyms: %s", len(wv), len(lexicon["acronyms"]), lexicon["acronyms"])
     for c, ns in lexicon["w2v_neighbours"].items():
