@@ -1,0 +1,14 @@
+{
+  "tfidf": {
+    "P@5": 0.683,
+    "R@10": 0.851,
+    "queries": 24,
+    "queries_with_relevant": 23
+  },
+  "bow": {
+    "P@5": 0.475,
+    "R@10": 0.484,
+    "queries": 24,
+    "queries_with_relevant": 23
+  }
+}

@@ -120,7 +120,19 @@ Source: `data/eval/results_test_gold_v1.json`
 
 Source: `data/matrix/matrix_full_v1.json`
 
-## 7. Phase 1 gate
+## 7. Sentence retrieval (Week 5)
+
+24 evaluation queries; top 10 of TF-IDF and BoW pooled (391 sentences, 172 judged relevant).
+
+| Index | P@5 | R@10 (pooled) |
+|---|---|---|
+| **TF-IDF** | **0.683** | 0.851 |
+| BoW (baseline) | 0.475 | 0.484 |
+
+R@10 is over the 23 queries with at least one relevant sentence (query 22, "no significant effect", has none).
+Source: `data/retrieval/eval_v1.json`, judgments in `data/retrieval/judgments_v1.csv`
+
+## 8. Phase 1 gate
 
 | Criterion | Result | Met |
 |---|---|---|
@@ -128,15 +140,17 @@ Source: `data/matrix/matrix_full_v1.json`
 | κ ≥ 0.6 | event 0.74, system 0.64, effect 0.01 | ❌ (effect) |
 | Entity precision ≥ 0.75 | 0.749 partial / 0.503 exact | ❌ |
 | Triple F1 beats co-occurrence | 0.429 vs 0.336 | ✅ |
-| P@5 on ≥ 20 queries | judgments not yet made | ⏳ |
+| P@5 on ≥ 20 queries | TF-IDF 0.683 on 24 queries (AI-judged, see disclosure 2) | ✅ |
 | Live demo | `streamlit run app.py` | ✅ |
 
-## 8. Disclosures the report must make
+## 9. Disclosures the report must make
 
 1. **AI-written code.** The pipeline code was written with an AI assistant (Claude). The PRD says
    "all pipeline code is written by the team", and the team accepted this deviation.
-2. **AI-chosen seeds and AI-labelled relevance check.** The 30 seed abstracts and the y/n labels of the
-   50-abstract cut-off sample (section 2) were produced by the AI assistant, not by the team.
+2. **AI-chosen seeds and AI-made relevance labels.** The 30 seed abstracts, the y/n labels of the
+   50-abstract cut-off sample (section 2) and all 391 retrieval relevance judgments (section 7) were produced
+   by the AI assistant, not by the team. The same assistant wrote the retrieval code, so P@5 is not an
+   independent measurement; system names were hidden in the judgment file.
 3. **Human gold labels.** All gold labels (pilot, test) were made by two human annotators in Label Studio.
 4. **Disagreement resolution.** Disagreements on the double-annotated sentences were resolved by
    **seeded random selection of one annotator's whole sentence annotation** (seed 42), not by discussion.
