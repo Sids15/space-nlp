@@ -40,6 +40,11 @@ def test_guideline_boundaries():
     assert ("2003 Halloween storm", "geomagnetic_storm") in got and ("satellites", "satellites") in got  # year stays, count goes
     got = tags("The storm hit LEO satellites, GEO satellites and GPS.")
     assert not any("," in text for text, _ in got)  # never one highlight across a comma
+    assert ("GPS stations", "gnss") in tags("The storm degraded data from as many as 114 GPS stations.")
+    assert ("geomagnetic storms (G)", "geomagnetic_storm") in tags("NOAA scales cover geomagnetic storms (G) and more.")
+    assert not any(t.count("(") != t.count(")") for t, _ in tags("Geomagnetic storms induced current (GIC) in transformers."))
+    got = tags("Geomagnetically induced current (GIC) in power grids occurring during storms can cause damage.")
+    assert ("Geomagnetically induced current (GIC)", "power_grid") in got
 
 
 def test_wsd_rejects_off_domain_senses():

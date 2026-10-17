@@ -30,13 +30,15 @@ from domain import ACRONYMS, HEADS, LABEL_OF, PHRASES, phrase_variants
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "data" / "entities"
-TRIM_POS = {"DET", "PRON", "PUNCT", "ADV"}  # leading determiners/possessives/"especially" are not part of a mention
+TRIM_POS = {"DET", "PRON", "PUNCT", "ADV", "ADP", "SCONJ"}  # leading "the", "its", "especially", "as" are not part of a mention
 # ponytail: Lesk margin hand-set to ~one rare content word (IDF units); tune on the dev split, never test
 WSD_MARGIN = 5.0
 CAUSAL_HYPHEN_HEADS = {"storm", "superstorm", "substorm", "flare"}
 CAUSAL_PARTICIPLES = {"induced", "driven", "caused", "generated", "related", "associated"}
-QUANTIFIERS = set("several many some all both each various numerous multiple few most one such two three four five six seven "
+QUANTIFIERS = set("several many some all both each various numerous multiple few most one such certain two three four five six seven "
                   "eight nine ten".split())  # ...nor are quantity words (years such as "2003" stay)
+# chunk heads that name the equipment of a system already in the chunk: "GPS stations", "HF radio wave"
+SYSTEM_TAILS = {"receiver", "station", "network", "wave", "link", "constellation", "signal"}
 NER_MAP = {"EVENT": "EVENT", "ORG": "SYSTEM", "PRODUCT": "SYSTEM", "FAC": "SYSTEM"}
 log = logging.getLogger("entities")
 
@@ -114,8 +116,11 @@ class Tagger:
         for t in triggers:
             span = t.span
             chunk = next((c for c in chunks if c.start <= span.start and span.end <= c.end), None)
-            if chunk is not None and (chunk.root.lemma_.lower() in HEADS or span.start <= chunk.root.i < span.end):
+            root = chunk.root.lemma_.lower() if chunk is not None else None
+            if chunk is not None and (root in HEADS or root in SYSTEM_TAILS or span.start <= chunk.root.i < span.end):
                 inside = {(x.label, x.canonical) for x in triggers if chunk.start <= x.span.start and x.span.end <= chunk.end}
+                if root in SYSTEM_TAILS and {lab for lab, _ in inside} != {"SYSTEM"}:
+                    inside = set()  # "storm signal" is not a system
                 coordinated = any(tok.pos_ == "CCONJ" or tok.text == "," for tok in chunk)  # "GPS and HF", "G5 storm, S2 storm"
                 if len({lab for lab, _ in inside}) == 1 and not coordinated:  # never merge an EVENT and a SYSTEM
                     span = _trim(chunk, protect)
@@ -143,6 +148,7 @@ class Tagger:
                 self.unresolved[span.text.lower()] += 1
                 continue
             found.append(_entity(span, head.label, canonical, source))
+        found = _union_overlaps(doc, found)
         keep = {(s.start, s.end) for s in filter_spans([e["_span"] for e in found])}
         return _merge_acronyms(doc, [e for e in found if (e["_span"].start, e["_span"].end) in keep])
 
@@ -178,12 +184,21 @@ def _trim(span, protect=frozenset()):
         start += 1
     while end > start + 1 and doc[end - 1].pos_ == "PUNCT":
         end -= 1
+    if end < len(doc) and doc[end].text == ")" and doc[start:end].text.count("(") > doc[start:end].text.count(")"):
+        end += 1  # "current (GIC" -> "current (GIC)"
     return doc[start:end]
 
 
 def _merge_acronyms(doc, found):
-    """'Global Positioning System (GPS)' is one mention: join a name and the bracketed acronym right after it."""
+    """'Global Positioning System (GPS)' is one mention: join a name and the bracketed acronym right after it.
+    A bracketed short code that is not itself a mention ("geomagnetic storms (G)") joins its name as well."""
     found = sorted(found, key=lambda e: e["_span"].start)
+    starts = {e["_span"].start for e in found}
+    for e in found:
+        sp = e["_span"]
+        if (sp.end + 2 < len(doc) and doc[sp.end].text == "(" and doc[sp.end + 2].text == ")"
+                and sp.end + 1 not in starts and _is_code(doc[sp.end + 1].text)):
+            e.update(_entity(doc[sp.start:sp.end + 3], e["label"], e["canonical"], e["source"]))
     out = []
     for e in found:
         prev = out[-1]["_span"] if out else None
@@ -194,6 +209,26 @@ def _merge_acronyms(doc, found):
         else:
             out.append(e)
     return out
+
+
+def _union_overlaps(doc, found):
+    """Two overlapping mentions of one family are one mention:
+    'Geomagnetically induced current' + 'current (GIC)' -> 'Geomagnetically induced current (GIC)'."""
+    out = []
+    for e in sorted(found, key=lambda e: (e["_span"].start, -e["_span"].end)):
+        prev = out[-1]["_span"] if out else None
+        if prev is not None and out[-1]["canonical"] == e["canonical"] and e["_span"].start < prev.end:
+            end = max(prev.end, e["_span"].end)
+            out[-1] = _entity(doc[prev.start:end], out[-1]["label"], out[-1]["canonical"], out[-1]["source"])
+        else:
+            out.append(e)
+    return out
+
+
+def _is_code(text):
+    """'G', 'GIC', 'GMDs', 'SEPs': an acronym, i.e. capitals with an optional plural s."""
+    core = text[:-1] if text.endswith("s") else text
+    return 1 <= len(core) <= 6 and core.isalpha() and core.isupper()
 
 
 def _is_count(tok):
