@@ -64,40 +64,44 @@ Gold: 200 sentences, 339 entity mentions, 44 (event, system, effect) triples.
 
 | Run | Exact P | Exact R | Exact F1 | Partial P | Partial R | Partial F1 |
 |---|---|---|---|---|---|---|
-| **full pipeline** | 0.503 | 0.531 | 0.516 | **0.749** | 0.791 | 0.769 |
+| **full pipeline** | 0.534 | 0.563 | 0.548 | **0.749** | 0.791 | 0.769 |
+| full pipeline, before the round 2 fixes | 0.503 | 0.531 | 0.516 | 0.749 | 0.791 | 0.769 |
 | gazetteer only (baseline) | 0.425 | 0.428 | 0.426 | 0.689 | 0.693 | 0.691 |
 | spaCy NER (baseline) | 0.048 | 0.003 | 0.006 | 0.905 | 0.056 | 0.106 |
-| full, no WSD (ablation) | 0.503 | 0.531 | 0.516 | 0.749 | 0.791 | 0.769 |
-| full, no synonyms (ablation) | 0.506 | 0.528 | 0.517 | 0.754 | 0.788 | 0.771 |
+| full, no WSD (ablation) | 0.534 | 0.563 | 0.548 | 0.749 | 0.791 | 0.769 |
+| full, no synonyms (ablation) | 0.537 | 0.560 | 0.548 | 0.754 | 0.788 | 0.771 |
 
-By slot (full, exact): event P 0.625 / R 0.638 / F1 0.631; system P 0.413 / R 0.447 / F1 0.429.
+By slot (full, exact): event P 0.632 / R 0.644 / F1 0.638; system P 0.461 / R 0.500 / F1 0.480.
 
 ### Triples (event, system, effect)
 
 | Run | P | R | F1 | F1 95% CI | Beats baseline in |
 |---|---|---|---|---|---|
-| **full pipeline** | 0.450 | 0.409 | **0.429** | 0.282–0.559 | 91.6% of resamples |
+| **full pipeline** | 0.439 | 0.409 | **0.424** | 0.276–0.554 | 90.3% of resamples |
+| full pipeline, before the round 2 fixes | 0.450 | 0.409 | 0.429 | 0.282–0.559 | 91.6% |
 | co-occurrence (baseline) | 0.242 | 0.545 | 0.336 | 0.222–0.440 | n/a |
-| full, no negation (ablation) | 0.450 | 0.409 | 0.429 | 0.282–0.559 | 91.6% |
-| full, no WSD (ablation) | 0.450 | 0.409 | 0.429 | 0.282–0.559 | 91.6% |
-| full, no synonyms (ablation) | 0.462 | 0.409 | 0.434 | 0.286–0.568 | 92.1% |
+| full, no negation (ablation) | 0.439 | 0.409 | 0.424 | 0.276–0.554 | 90.3% |
+| full, no WSD (ablation) | 0.439 | 0.409 | 0.424 | 0.276–0.554 | 90.3% |
+| full, no synonyms (ablation) | 0.450 | 0.409 | 0.429 | 0.282–0.561 | 91.2% |
 
-Pairs only (effect ignored): full F1 0.434, co-occurrence F1 0.517 (recall 0.841).
+Pairs only (effect ignored): full F1 0.452 (before round 2: 0.434), co-occurrence F1 0.517 (recall 0.841).
+The boundary fixes changed one test triple: a right pair now gets `degradation` where the gold says `no_effect`.
 CI = 1,000 bootstrap resamples over sentences, seed 42.
 
 ### Error breakdown (full pipeline, automatic categories)
 
 | Error | Category | Count |
 |---|---|---|
-| Entity false positive | boundary (overlaps a gold span, same label) | 91 |
+| Entity false positive | boundary (overlaps a gold span, same label) | 80 |
 | | spurious (no gold overlap) | 79 |
 | | wrong label | 8 |
-| Entity false negative | boundary | 89 |
+| Entity false negative | boundary | 78 |
 | | missed entirely | 61 |
 | | wrong label | 9 |
 | Triple false positive | pair not in gold | 21 |
+| | right pair, wrong effect | 2 |
+| Triple false negative | pair missed | 25 |
 | | right pair, wrong effect | 1 |
-| Triple false negative | pair missed | 26 |
 
 All 7 gold `no_effect` triples are missed (the pipeline emits `no_effect` once in the whole corpus).
 A seeded 50-error sample for the hand-done analysis is in `data/eval/errors_test_gold_v1_sample50.csv`
@@ -107,25 +111,26 @@ Source: `data/eval/results_test_gold_v1.json`
 
 ### Error analysis (seeded sample of 50 errors, categorised by the AI assistant, see disclosure 2)
 
+Each error was checked against `docs/annotation_guideline.md`. Where the pipeline follows the guideline
+and the gold does not, the error is counted under the gold set.
+
 | Group | Category | Count |
 |---|---|---|
-| Span boundary (19) | intensity modifier kept ("intense geomagnetic storm" vs gold "geomagnetic storm") | 8 |
-| | head noun dropped ("GPS" vs gold "GPS stations", "HF radio" vs "HF radio wave") | 7 |
-| | system word used as a modifier ("spacecraft potential", "satellite anomalies") | 2 |
-| | slash compound ("GPS/BeiDou") | 1 |
-| | acronym in parentheses | 1 |
-| Lexicon (7) | effect or phenomenon tagged as a system ("surface charging", "orbital decay") | 6 |
-| | term not in the gazetteer ("space probes") | 1 |
-| Word sense (2) | "ionospheric storm" read as geomagnetic storm | 2 |
-| Reference (1) | anaphoric "this storm" | 1 |
-| Relation (6) | effect only implied, no cue word | 2 |
-| | cause through a chain (flare → D-layer → HF) | 1 |
-| | NOAA scale name, not a reported effect | 1 |
-| | purpose clause ("in order to understand the effect") | 1 |
-| | weak cue ("reflect the storm impacts") | 1 |
-| Gold set (15) | gold label wrong (e.g. "solar radiation storms" as geomagnetic storm) | 7 |
-| | gold misses a valid mention or triple | 6 |
-| | gold inconsistent between similar sentences | 2 |
+| Pipeline: span boundary (14) | head noun dropped ("CubeSat" vs gold "CubeSat system", "HF radio" vs "HF radio band") | 6 |
+| | system word used as a modifier missed ("satellite operations", "transformer gassing") | 3 |
+| | other boundary slips (participle kept, acronym split, compound split, gazetteer phrase too long, modifier head widened) | 5 |
+| Pipeline: lexicon (3) | term not in the gazetteer ("GOES", "Galaxy 15", "solar cosmic rays") | 3 |
+| Pipeline: parser (1) | sentence fragment, no parse | 1 |
+| Pipeline: relation (4) | aim statement ("aims to determine the effect") | 1 |
+| | hedged effect ("potential impact", "potential hazards") | 2 |
+| | outage cue inside the mention ("radio blackouts") gives `degradation` | 1 |
+| Gold set (28) | valid mention missed by the annotator ("internal charging", "RTK", "the storm") | 12 |
+| | span against the guideline (describing words and years dropped, "(GICs)" without its name) | 9 |
+| | wrong label or not an entity ("LEO spacecraft" as GNSS, VLF as HF, "flare irradiance model") | 5 |
+| | ambiguous boundary | 2 |
+
+28 of the 50 sampled errors (56%) trace to the gold labels, so the scores understate the pipeline. The same
+assistant built the pipeline and judged these errors; the categories are not an independent check.
 
 Source: `category` column of `data/eval/errors_test_gold_v1_sample50.csv`
 
@@ -133,12 +138,12 @@ Source: `category` column of `data/eval/errors_test_gold_v1_sample50.csv`
 
 | Event → system | Papers | Majority effect | Agreement | Status |
 |---|---|---|---|---|
-| Storm → GNSS | 85 | degradation | 0.955 | agree |
+| Storm → GNSS | 86 | degradation | 0.955 | agree |
 | Storm → HF radio | 20 | degradation | 0.714 | mixed |
 | Storm → satellites | 24 | degradation | 0.875 | agree |
 | Storm → power grid | 89 | degradation | 0.925 | agree |
 | SEP → GNSS | 22 | degradation | 0.955 | agree |
-| SEP → HF radio | 21 | degradation | 0.545 | mixed |
+| SEP → HF radio | 22 | degradation | 0.565 | mixed |
 | SEP → satellites | 13 | degradation | 1.000 | agree |
 | SEP → power grid | 0 | n/a | n/a | gap |
 
@@ -162,8 +167,8 @@ Source: `data/retrieval/eval_v1.json`, judgments in `data/retrieval/judgments_v1
 |---|---|---|
 | ≥ 500 abstracts | 1,002 after filtering | ✅ |
 | κ ≥ 0.6 | event 0.74, system 0.64, effect 0.01 | ❌ (effect) |
-| Entity precision ≥ 0.75 | 0.749 partial / 0.503 exact | ❌ |
-| Triple F1 beats co-occurrence | 0.429 vs 0.336 | ✅ |
+| Entity precision ≥ 0.75 | 0.749 partial / 0.534 exact | ❌ |
+| Triple F1 beats co-occurrence | 0.424 vs 0.336 | ✅ |
 | P@5 on ≥ 20 queries | TF-IDF 0.683 on 24 queries (AI-judged, see disclosure 2) | ✅ |
 | Live demo | `streamlit run app.py` | ✅ |
 
@@ -181,7 +186,12 @@ Source: `data/retrieval/eval_v1.json`, judgments in `data/retrieval/judgments_v1
    **seeded random selection of one annotator's whole sentence annotation** (seed 42), not by discussion.
    The same was done for the pilot to form the dev set. Choices: `data/gold/exports/*.adjudication.json`.
 5. **Single annotation.** Test sentences 61–200 were labelled by annotator A only.
-6. **Tuning.** Boundary and list rules were tuned on the 30-sentence dev set only. The test set was scored
-   once before tuning and once after; nothing was changed after the second test run.
+6. **Tuning.** Round 1: boundary and list rules were tuned on the 30-sentence dev set only, and the test set
+   was scored before and after. Round 2: after the test error analysis, three boundary rules that the
+   annotation guideline already states were added (keep head nouns such as "stations" and "receivers"; keep a
+   bracketed acronym with its name; drop leading "as" and "certain"), plus a fix for a malformed span
+   ("current (GIC"). These were found **on test errors**, checked on dev (exact entity F1 0.684 → 0.735) and
+   then scored on test. Round 2 numbers are reported next to the earlier ones. The test set is no longer
+   fully unseen, so the round 2 gain (exact entity F1 0.516 → 0.548) is optimistic.
 7. **Sample bias.** The gold sample favours abstracts that state an event and a system explicitly.
 8. **Environment.** Python 3.13.7 instead of the PRD's 3.11.

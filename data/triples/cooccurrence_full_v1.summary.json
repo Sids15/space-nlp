@@ -1,14 +1,14 @@
 {
   "run": "cooccurrence_full",
-  "triples": 1759,
+  "triples": 1762,
   "by_effect": {
-    "degradation": 1759
+    "degradation": 1762
   },
   "by_method": {
-    "cooccurrence": 1759
+    "cooccurrence": 1762
   },
   "by_pair": {
-    "geomagnetic_storm|gnss": 602,
+    "geomagnetic_storm|gnss": 605,
     "geomagnetic_storm|power_grid": 600,
     "sep_event|gnss": 182,
     "geomagnetic_storm|satellites": 160,

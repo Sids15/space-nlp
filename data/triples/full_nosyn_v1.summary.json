@@ -1,25 +1,25 @@
 {
   "run": "full_nosyn",
-  "triples": 461,
+  "triples": 466,
   "by_effect": {
-    "degradation": 423,
+    "degradation": 428,
     "outage": 29,
     "mitigated": 8,
     "no_effect": 1
   },
   "by_method": {
-    "dep_path": 154,
-    "dep_nominal": 128,
+    "dep_path": 158,
+    "dep_nominal": 129,
     "dep_svo": 112,
     "dep_prep": 62,
     "dep_passive": 5
   },
   "by_pair": {
     "geomagnetic_storm|power_grid": 169,
-    "geomagnetic_storm|gnss": 158,
+    "geomagnetic_storm|gnss": 161,
     "geomagnetic_storm|satellites": 40,
     "sep_event|gnss": 38,
-    "sep_event|hf_radio": 24,
+    "sep_event|hf_radio": 26,
     "sep_event|satellites": 17,
     "geomagnetic_storm|hf_radio": 15
   }

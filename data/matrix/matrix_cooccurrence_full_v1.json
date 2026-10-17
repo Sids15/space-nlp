@@ -31,7 +31,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storms",
-    "system_text": "GPS"
+    "system_text": "GPS network"
    },
    {
     "bibcode": "2002AnGp...45.3490A",
@@ -51,7 +51,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic activity",
-    "system_text": "GPS"
+    "system_text": "to 300 GPS stations"
    },
    {
     "bibcode": "2002emc..conf...16E",
@@ -71,7 +71,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GPS"
+    "system_text": "more than 30 GPS stations"
    },
    {
     "bibcode": "2004ArtSa..39..343K",
@@ -111,7 +111,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "severe storm",
-    "system_text": "GPS"
+    "system_text": "GPS networks"
    },
    {
     "bibcode": "2005ITGRS..43.2283H",
@@ -241,7 +241,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2007msmw....2...89S",
@@ -261,7 +261,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "magnetic storm",
-    "system_text": "GPS"
+    "system_text": "GPS network"
    },
    {
     "bibcode": "2008AdSpR..41..579S",
@@ -321,7 +321,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GPS"
+    "system_text": "GPS network"
    },
    {
     "bibcode": "2009JGRA..11412313P",
@@ -361,7 +361,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "November 2004 storm",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2012JASTP..74...94U",
@@ -401,7 +401,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "Global Positioning System"
+    "system_text": "Global Positioning System signals"
    },
    {
     "bibcode": "2012SPIE.8535E..0BP",
@@ -421,7 +421,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "i) Global Positioning Systems"
+    "system_text": "i) Global Positioning Systems (GPSs)"
    },
    {
     "bibcode": "2013AdSpR..52..147D",
@@ -680,8 +680,8 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "-18 March 2015 (St. Patrick's Day storm",
-    "system_text": "Global Navigation Satellite Systems (GNSS)"
+    "event_text": "-18 March 2015 (St. Patrick's Day storm)",
+    "system_text": "ground-based Global Navigation Satellite Systems (GNSS) stations"
    },
    {
     "bibcode": "2016simi.conf...47S",
@@ -721,7 +721,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GPS"
+    "system_text": "different GPS stations"
    },
    {
     "bibcode": "2017JGRA..122.9994G",
@@ -821,7 +821,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2018AnGeo..36...81N",
@@ -881,7 +881,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GPS"
+    "system_text": "dual frequency GPS stations"
    },
    {
     "bibcode": "2018JGRA..123.7943J",
@@ -1021,7 +1021,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "strong geomagnetic storm",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    },
    {
     "bibcode": "2018SunGe..13...89S",
@@ -1091,7 +1091,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GNSS"
+    "system_text": "+ ground-based GNSS stations"
    },
    {
     "bibcode": "2019MNRAS.488..910R",
@@ -1331,7 +1331,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "International GNSS Services (IGS) network"
    },
    {
     "bibcode": "2020JGeo..14001782K",
@@ -1341,7 +1341,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GNSS"
+    "system_text": "GNSS stations"
    },
    {
     "bibcode": "2020JPhCS1632a2008A",
@@ -1461,7 +1461,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GPS"
+    "system_text": "more than 80% GPS stations"
    },
    {
     "bibcode": "2020ursi.conf...27C",
@@ -1511,7 +1511,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "GNSS networks"
    },
    {
     "bibcode": "2021JGRA..12629010S",
@@ -1621,7 +1621,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storms",
-    "system_text": "GPS"
+    "system_text": "GPS radio-wave"
    },
    {
     "bibcode": "2021cccn.conf..254L",
@@ -1781,7 +1781,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storms",
-    "system_text": "GNSS"
+    "system_text": "IGS Multi-GNSS Experiment (MGEX) stations"
    },
    {
     "bibcode": "2022RemS...14.5486E",
@@ -1791,7 +1791,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "strongest magnetic storms",
-    "system_text": "GNSS"
+    "system_text": "global GNSS network"
    },
    {
     "bibcode": "2022RemS...14.6155A",
@@ -2141,7 +2141,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "SSC",
-    "system_text": "GNSS"
+    "system_text": "ground-based GNSS networks"
    },
    {
     "bibcode": "2023Senso..23.1183H",
@@ -2171,7 +2171,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GNSS"
+    "system_text": "ground-based GNSS stations"
    },
    {
     "bibcode": "2023SpWea..2103219R",
@@ -2181,7 +2181,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "SSC",
-    "system_text": "GNSS"
+    "system_text": "equatorial GNSS station"
    },
    {
     "bibcode": "2023SpWea..2103542L",
@@ -2251,7 +2251,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System"
    },
    {
     "bibcode": "2024AdSpR..73.4608Z",
@@ -2281,7 +2281,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "frequent geomagnetic storms",
-    "system_text": "Global Positioning System (GPS)"
+    "system_text": "Global Positioning System (GPS) signals"
    },
    {
     "bibcode": "2024AdSpR..74.2492Z",
@@ -2381,7 +2381,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storms",
-    "system_text": "standard point positioning"
+    "system_text": "standard point positioning (SPP)"
    },
    {
     "bibcode": "2024Heliy..1030725U",
@@ -2391,7 +2391,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2024JASTP.25906238L",
@@ -2781,7 +2781,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "low-latitude GNSS stations"
    },
    {
     "bibcode": "2025AdSpR..76.7308B",
@@ -2821,7 +2821,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "ionospheric storm",
-    "system_text": "GNSS"
+    "system_text": "dense GNSS networks"
    },
    {
     "bibcode": "2025AdSpR..76.7453C",
@@ -2841,7 +2841,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "International GNSS Service (IGS) stations"
    },
    {
     "bibcode": "2025AdSpR..76.7489B",
@@ -2881,7 +2881,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "Geomagnetic storms",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    },
    {
     "bibcode": "2025AnGp...68A.214P",
@@ -2931,7 +2931,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System"
    },
    {
     "bibcode": "2025Atmos..16..529P",
@@ -2941,7 +2941,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "G5 geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "GNSS-IGS stations"
    },
    {
     "bibcode": "2025Atmos..16..676T",
@@ -2951,7 +2951,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "GNSS receiver"
+    "system_text": "GNSS receiver station"
    },
    {
     "bibcode": "2025CaJPh.103.0225F",
@@ -3071,7 +3071,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "May 2024 super geomagnetic storm",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) stations"
    },
    {
     "bibcode": "2025JAGeo..19...49S",
@@ -3111,7 +3111,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "St. Patrick's Day geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "GNSS stations"
    },
    {
     "bibcode": "2025JASTP.27306528P",
@@ -3231,7 +3231,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "GNSS stations"
    },
    {
     "bibcode": "2025RemS...17.1629T",
@@ -3351,7 +3351,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "global navigation satellite system (GNSS)"
+    "system_text": "global navigation satellite system"
    },
    {
     "bibcode": "2025RemS...17.2933B",
@@ -3431,7 +3431,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "moderate geomagnetic storm",
-    "system_text": "single-point positioning"
+    "system_text": "single-point positioning (SPP)"
    },
    {
     "bibcode": "2025SpWea..2304389C",
@@ -3531,7 +3531,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    },
    {
     "bibcode": "2025plan.conf..486M",
@@ -3890,7 +3890,7 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "that three storm time substorms",
+    "event_text": "storm time substorms",
     "system_text": "GNSS"
    },
    {
@@ -3900,7 +3900,7 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "that three storm time substorms",
+    "event_text": "storm time substorms",
     "system_text": "GNSS"
    },
    {
@@ -4041,7 +4041,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "ionospheric storm",
-    "system_text": "GNSS"
+    "system_text": "based GNSS stations"
    },
    {
     "bibcode": "2026SpWea..2405101L",
@@ -4051,7 +4051,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "GNSS"
+    "system_text": "dense GNSS networks"
    },
    {
     "bibcode": "2026SurRv..58..499Z",
@@ -4221,7 +4221,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "strong geomagnetic activity",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    }
   ]
  },
@@ -4267,7 +4267,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm sudden commencement",
-    "system_text": "HF communications"
+    "system_text": "high-latitude HF communications links"
    },
    {
     "bibcode": "2014R&QE...57..467K",
@@ -4486,8 +4486,8 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "Geomagnetic Storms",
-    "system_text": "Radio Blackouts"
+    "event_text": "Geomagnetic Storms (G)",
+    "system_text": "Radio Blackouts (R)"
    },
    {
     "bibcode": "2024cosp...45.2890J",
@@ -4496,8 +4496,8 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "geomagnetic storms",
-    "system_text": "radio blackouts"
+    "event_text": "geomagnetic storms (G)",
+    "system_text": "radio blackouts (R)"
    },
    {
     "bibcode": "2025AdSpR..76.7325C",
@@ -4657,7 +4657,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "particle storms",
-    "system_text": "HF radio"
+    "system_text": "HF radio signals"
    },
    {
     "bibcode": "2026cosp...46.3421M",
@@ -5233,7 +5233,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storms",
-    "system_text": "satellites"
+    "system_text": "satellites (SDCB)"
    },
    {
     "bibcode": "2023AdSpR..72.4379D",
@@ -5763,7 +5763,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "storm",
-    "system_text": "Starlink"
+    "system_text": "Starlink constellation"
    }
   ]
  },
@@ -6109,7 +6109,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic disturbance",
-    "system_text": "GIC"
+    "system_text": "Hydro One's GIC detection network"
    },
    {
     "bibcode": "2013JSWSC...3A..19S",
@@ -6439,7 +6439,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "moderate storm",
-    "system_text": "small geomagnetically induced current (GIC"
+    "system_text": "small geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2016SpWea..14..300L",
@@ -6729,7 +6729,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "strong magnetic storm",
-    "system_text": "induced current (GIC"
+    "system_text": "induced current (GIC)"
    },
    {
     "bibcode": "2018cice.conf..305K",
@@ -6849,7 +6849,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic disturbances",
-    "system_text": "geomagnetically induced current (GIC"
+    "system_text": "geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2019JPhCS1237b2110W",
@@ -6859,7 +6859,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storm",
-    "system_text": "geomagnetic induced current (GIC"
+    "system_text": "geomagnetic induced current (GIC)"
    },
    {
     "bibcode": "2019MNRAS.484.4083H",
@@ -6919,7 +6919,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "strong magnetic storm",
-    "system_text": "induced current (GIC"
+    "system_text": "induced current (GIC)"
    },
    {
     "bibcode": "2019apap.conf....7K",
@@ -7199,7 +7199,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic disturbance (GMD)",
-    "system_text": "Geomagnetic induced current (GIC"
+    "system_text": "Geomagnetic induced current (GIC)"
    },
    {
     "bibcode": "2020peco.conf...28A",
@@ -7269,7 +7269,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic disturbances (GMDs)",
-    "system_text": "Geomagnetically induced current"
+    "system_text": "Geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2021IEEEA...9p7204K",
@@ -7309,7 +7309,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "extreme geomagnetic storms",
-    "system_text": "Geomagnetically induced current"
+    "system_text": "Geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2021aero.conf..323F",
@@ -7329,7 +7329,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storms",
-    "system_text": "current (GIC"
+    "system_text": "current (GIC)"
    },
    {
     "bibcode": "2021ciee.conf..832W",
@@ -7379,7 +7379,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar storm",
-    "system_text": "geomagnetically induced current (GIC"
+    "system_text": "geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2021naps.conf...67N",
@@ -7559,7 +7559,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "geomagnetic storms",
-    "system_text": "geomagnetic induced current (GIC"
+    "system_text": "geomagnetic induced current (GIC)"
    },
    {
     "bibcode": "2022pwaf.conf..119C",
@@ -7629,7 +7629,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "GMD",
-    "system_text": "geomagnetically induced current (GIC"
+    "system_text": "geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2023IEEEA..1198706K",
@@ -8069,7 +8069,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "Space weather-induced geomagnetic disturbances (GMDs)",
-    "system_text": "geomagnetically-induced current (GIC"
+    "system_text": "geomagnetically-induced current (GIC)"
    },
    {
     "bibcode": "2024pesg.conf..129A",
@@ -8429,7 +8429,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "Geomagnetic disturbances (GMDs)",
-    "system_text": "geomagnetically induced current (GIC"
+    "system_text": "geomagnetically induced current (GIC)"
    },
    {
     "bibcode": "2026ERExp...8p5329K",
@@ -8695,7 +8695,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "GPS"
+    "system_text": "international GPS network"
    },
    {
     "bibcode": "2001JASTP..63.1841A",
@@ -8715,7 +8715,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "GPS"
+    "system_text": "international GPS network"
    },
    {
     "bibcode": "2002AnGp...45.3480A",
@@ -8735,7 +8735,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flare",
-    "system_text": "GPS"
+    "system_text": "GPS observational stations"
    },
    {
     "bibcode": "2005JGRA..110.3307Z",
@@ -8855,7 +8855,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "associated solar radio bursts (SRB)",
-    "system_text": "Global Positioning System (GPS)"
+    "system_text": "Global Positioning System (GPS) signals"
    },
    {
     "bibcode": "2009RaSc...44.0A25C",
@@ -8905,7 +8905,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "large X-ray flares",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2012SpWea..1012001H",
@@ -9145,7 +9145,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "GPS"
+    "system_text": "GPS stations"
    },
    {
     "bibcode": "2018SpWea..16.1317L",
@@ -9155,7 +9155,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "X-class flare",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    },
    {
     "bibcode": "2019AdSpR..63.2867S",
@@ -9274,7 +9274,7 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "classified solar flares",
+    "event_text": "classified solar flares (SFs)",
     "system_text": "global navigation satellite system (GNSS)"
    },
    {
@@ -9425,7 +9425,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) stations"
    },
    {
     "bibcode": "2022RemS...14..652V",
@@ -9505,7 +9505,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "2017 solar flares",
-    "system_text": "GNSS"
+    "system_text": "GNSS stations"
    },
    {
     "bibcode": "2023SpWea..2103249X",
@@ -9515,7 +9515,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "Solar flares",
-    "system_text": "Global Navigation Satellite System (GNSS)"
+    "system_text": "Global Navigation Satellite System (GNSS) signals"
    },
    {
     "bibcode": "2023SpWea..2103249X",
@@ -9635,7 +9635,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "GNSS"
+    "system_text": "International GNSS Service (IGS) stations"
    },
    {
     "bibcode": "2025JAGeo..19...49S",
@@ -9775,7 +9775,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "M-class solar flares",
-    "system_text": "up navigation"
+    "system_text": "navigation"
    }
   ]
  },
@@ -9811,7 +9811,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "flare",
-    "system_text": "HF radio"
+    "system_text": "HF radio signals"
    },
    {
     "bibcode": "2008SpWea...612002S",
@@ -9851,7 +9851,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar proton events",
-    "system_text": "HF radio"
+    "system_text": "HF radio waves"
    },
    {
     "bibcode": "2015AdSpR..56.2527Z",
@@ -10220,8 +10220,8 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "Solar Radiation Storms",
-    "system_text": "Radio Blackouts"
+    "event_text": "Solar Radiation Storms (S)",
+    "system_text": "Radio Blackouts (R)"
    },
    {
     "bibcode": "2024cosp...45.2890J",
@@ -10230,8 +10230,8 @@
     "effect": "degradation",
     "method": "cooccurrence",
     "confidence": 0.3,
-    "event_text": "solar radiation storms",
-    "system_text": "radio blackouts"
+    "event_text": "solar radiation storms (S)",
+    "system_text": "radio blackouts (R)"
    },
    {
     "bibcode": "2024simi.conf...38T",
@@ -10371,7 +10371,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "HF radio"
+    "system_text": "HF radio signals"
    },
    {
     "bibcode": "2026cosp...46.3421M",
@@ -10417,7 +10417,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar particle events",
-    "system_text": "when designing spacecraft"
+    "system_text": "designing spacecraft"
    },
    {
     "bibcode": "2002ITNS...49.1345H",
@@ -10507,7 +10507,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "geosynchronous operational environmental satellite"
+    "system_text": "geosynchronous operational environmental satellite (GOES)"
    },
    {
     "bibcode": "2007BASI...35..487R",
@@ -10637,7 +10637,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar proton events",
-    "system_text": "up to six polar orbiting satellites"
+    "system_text": "to six polar orbiting satellites"
    },
    {
     "bibcode": "2013aero.confE.212L",
@@ -10767,7 +10767,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "solar flares",
-    "system_text": "Geostationary Operational Environmental Satellite"
+    "system_text": "Geostationary Operational Environmental Satellite (GOES)"
    },
    {
     "bibcode": "2016SerAJ.193...11T",
@@ -10887,7 +10887,7 @@
     "method": "cooccurrence",
     "confidence": 0.3,
     "event_text": "X-ray flares",
-    "system_text": "Geostationary Operational Environmental Satellite"
+    "system_text": "Geostationary Operational Environmental Satellite (GOES)"
    },
    {
     "bibcode": "2023RemS...15.4626L",
