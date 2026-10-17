@@ -420,5 +420,24 @@
  "phase1_gate": {
   "entity_precision>=0.75": false,
   "triple_f1_beats_cooccurrence": true
+ },
+ "error_breakdown_full": {
+  "entity_fp": {
+   "spurious": 79,
+   "boundary": 91,
+   "wrong_label": 8
+  },
+  "entity_fn": {
+   "missed": 61,
+   "boundary": 89,
+   "wrong_label": 9
+  },
+  "triple_fp": {
+   "extra_pair": 21,
+   "wrong_effect": 1
+  },
+  "triple_fn": {
+   "missed_pair": 26
+  }
  }
 }

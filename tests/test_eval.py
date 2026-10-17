@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from evaluate import counts, partial_matches, prf, score_entities  # noqa: E402
+from evaluate import counts, errors, partial_matches, prf, score_entities  # noqa: E402
 
 
 def test_prf():
@@ -31,6 +31,16 @@ def test_triples_split_multi_label_gold():
     pred = {"s": {("sep_event", "gnss", "outage"), ("geomagnetic_storm", "gnss", "degradation")}}
     assert counts(gold, pred, True, ["s"]) == (1, 1, 1)
     assert counts(gold, pred, False, ["s"]) == (1, 1, 0)
+
+
+def test_error_categories():
+    gold = {"s": {"text": "The geomagnetic storm hit GPS.", "entities": [(4, 21, "geomagnetic_storm"), (26, 29, "gnss")],
+                  "triples": {("geomagnetic_storm", "gnss"): "outage"}}}
+    ents = {"s": {(16, 21, "geomagnetic_storm"), (26, 29, "hf_radio")}}
+    rows = errors(gold, ents, {"s": {("geomagnetic_storm", "gnss", "degradation")}})
+    got = {(r["kind"], r["auto_category"]) for r in rows}
+    assert {("entity_fp", "boundary"), ("entity_fp", "wrong_label"), ("triple_fp", "wrong_effect"),
+            ("triple_fn", "wrong_effect")} <= got
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ Scores every run that exists on disk against the gold sentences:
             with a 95% bootstrap interval over sentences and a paired bootstrap against the baseline
 
 Writes data/eval/results_<gold>_<v>.json and data/eval/errors_<gold>_<v>.csv (false positives / negatives of the
-full run, with an empty `category` column for the error analysis).
+full run, with an empty `category` column), plus a seeded 50-error sample for the error analysis.
 """
 
 import argparse
@@ -30,6 +30,7 @@ TRIPLE_RUNS = ["full", "cooccurrence_full", "full_noneg", "full_nowsd", "full_no
 BASELINE = "cooccurrence_full"
 BOOTSTRAP = 1000
 SEED = 42
+ERROR_SAMPLE = 50  # seeded random errors for the hand-done error analysis
 
 
 def prf(tp, fp, fn):
@@ -131,20 +132,32 @@ def load_triples(run, version, ids):
     return out
 
 
+def span_error_type(span, others):
+    """boundary: overlaps a span with the same label; wrong_label: overlaps one with another label; else none."""
+    s, e, label = span
+    overlap = [o for o in others if o[0] < e and s < o[1]]
+    return "boundary" if any(o[2] == label for o in overlap) else "wrong_label" if overlap else None
+
+
 def errors(gold, ents, triples):
+    """Every error of a run, with a mechanical `auto_category`; `category` is left for the human error analysis."""
     rows = []
     for sid, g in sorted(gold.items()):
         text = g["text"]
         gs, ps = set(g["entities"]), ents.get(sid, set())
-        for kind, spans in (("entity_fp", ps - gs), ("entity_fn", gs - ps)):
-            for s, e, label in sorted(spans):
-                rows.append({"kind": kind, "id": sid, "item": f"'{text[s:e]}' {label}", "sentence": text})
+        for kind, spans, others, alone in (("entity_fp", ps - gs, gs, "spurious"), ("entity_fn", gs - ps, ps, "missed")):
+            for span in sorted(spans):
+                s, e, label = span
+                rows.append({"kind": kind, "id": sid, "item": f"'{text[s:e]}' {label}",
+                             "auto_category": span_error_type(span, others) or alone, "sentence": text})
         gt, pt = gold_triples(g, True), triples.get(sid, set())
-        for kind, items in (("triple_fp", pt - gt), ("triple_fn", gt - pt)):
+        for kind, items, others in (("triple_fp", pt - gt, gt), ("triple_fn", gt - pt, pt)):
+            other_pairs = {t[:2] for t in others}
             for t in sorted(items):
-                rows.append({"kind": kind, "id": sid, "item": " -> ".join(t), "sentence": text})
+                auto = "wrong_effect" if t[:2] in other_pairs else "extra_pair" if kind == "triple_fp" else "missed_pair"
+                rows.append({"kind": kind, "id": sid, "item": " -> ".join(t), "auto_category": auto, "sentence": text})
     for r in rows:
-        r["category"] = ""  # filled in by hand: boundary / wrong label / missed term / cue / scope / gold error ...
+        r["category"] = ""  # by hand: tokenizer / parser / lexicon gap / cue missing / hedging / gold error ...
     return rows
 
 
@@ -195,7 +208,17 @@ def main():
     out.write_text(json.dumps(results, indent=1), encoding="utf-8")
     err = OUT_DIR / f"errors_{args.gold.stem}_{args.version}.csv"
     rows = errors(gold, ent_runs["full"], tri_runs["full"])
-    write_csv(err, rows, ["kind", "id", "item", "category", "sentence"])
+    write_csv(err, rows, ["kind", "id", "item", "auto_category", "category", "sentence"])
+    breakdown = {}
+    for r in rows:
+        breakdown.setdefault(r["kind"], {}).setdefault(r["auto_category"], 0)
+        breakdown[r["kind"]][r["auto_category"]] += 1
+    results["error_breakdown_full"] = breakdown
+    out.write_text(json.dumps(results, indent=1), encoding="utf-8")
+    print("Errors of the full run:", json.dumps(breakdown))
+    sample = sorted(random.Random(SEED).sample(rows, min(ERROR_SAMPLE, len(rows))), key=lambda r: (r["kind"], r["id"]))
+    write_csv(err.with_name(err.stem + f"_sample{ERROR_SAMPLE}.csv"), sample,
+              ["kind", "id", "item", "auto_category", "category", "sentence"])
     print(f"-> {out.relative_to(ROOT)}\n-> {err.relative_to(ROOT)} ({len(rows)} errors to categorise)")
 
 
