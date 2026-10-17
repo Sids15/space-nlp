@@ -1,0 +1,18 @@
+<!-- Label Studio labeling config for the gold set. Paste into Project > Settings > Labeling Interface > Code. -->
+<View>
+  <Relations>
+    <Relation value="degradation"/>
+    <Relation value="outage"/>
+    <Relation value="no_effect"/>
+    <Relation value="mitigated"/>
+  </Relations>
+  <Labels name="label" toName="text">
+    <Label value="STORM" background="#c0392b"/>
+    <Label value="SEP" background="#e67e22"/>
+    <Label value="GNSS" background="#2980b9"/>
+    <Label value="HF_RADIO" background="#8e44ad"/>
+    <Label value="SATELLITES" background="#16a085"/>
+    <Label value="POWER_GRID" background="#7f8c8d"/>
+  </Labels>
+  <Text name="text" value="$text" granularity="word"/>
+</View>
