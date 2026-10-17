@@ -1,0 +1,23 @@
+{
+  "version": "v1",
+  "created_utc": "2026-10-13T04:45:13+00:00",
+  "source": "https://api.adsabs.harvard.edu/v1/search/query",
+  "fields": "bibcode,title,abstract,year,doi,doctype",
+  "sort": "citation_count desc",
+  "max_per_query": 2000,
+  "min_words": 50,
+  "queries": {
+    "reference": "abs:(galaxy OR galaxies OR \"star formation\" OR exoplanet OR \"stellar population\" OR cosmology OR \"active galactic nuclei\") AND year:[2000 TO 2026] AND doctype:article AND collection:astronomy NOT abs:(geomagnetic OR \"space weather\" OR ionosphere OR ionospheric OR magnetosphere OR \"solar wind\")"
+  },
+  "hits_per_query": {
+    "reference": 304061
+  },
+  "stats": {
+    "raw": 2000,
+    "duplicates": 0,
+    "unique": 2000,
+    "dropped_short": 125,
+    "dropped_non_english": 0,
+    "kept": 1875
+  }
+}

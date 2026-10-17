@@ -1,0 +1,36 @@
+{
+  "version": "v1",
+  "created_utc": "2026-10-13T04:27:49+00:00",
+  "source": "https://api.adsabs.harvard.edu/v1/search/query",
+  "fields": "bibcode,title,abstract,year,doi,doctype",
+  "max_per_query": 2000,
+  "min_words": 50,
+  "queries": {
+    "geomagnetic_storm|gnss": "abs:(\"geomagnetic storm\" OR \"geomagnetic storms\" OR \"magnetic storm\" OR \"geomagnetic disturbance\" OR \"coronal mass ejection\" OR \"coronal mass ejections\") AND abs:(GNSS OR GPS OR \"global positioning system\" OR \"satellite navigation\" OR GLONASS OR BeiDou) AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "geomagnetic_storm|hf_radio": "abs:(\"geomagnetic storm\" OR \"geomagnetic storms\" OR \"magnetic storm\" OR \"geomagnetic disturbance\" OR \"coronal mass ejection\" OR \"coronal mass ejections\") AND abs:(\"HF radio\" OR \"high frequency radio\" OR \"HF communication\" OR \"radio blackout\" OR \"shortwave fadeout\" OR \"polar cap absorption\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "geomagnetic_storm|satellites": "abs:(\"geomagnetic storm\" OR \"geomagnetic storms\" OR \"magnetic storm\" OR \"geomagnetic disturbance\" OR \"coronal mass ejection\" OR \"coronal mass ejections\") AND abs:(\"spacecraft charging\" OR \"surface charging\" OR \"single event upset\" OR \"single event effect\" OR \"satellite anomaly\" OR \"satellite anomalies\" OR \"satellite drag\" OR \"atmospheric drag\" OR \"orbital decay\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "geomagnetic_storm|power_grid": "abs:(\"geomagnetic storm\" OR \"geomagnetic storms\" OR \"magnetic storm\" OR \"geomagnetic disturbance\" OR \"coronal mass ejection\" OR \"coronal mass ejections\") AND abs:(\"geomagnetically induced current\" OR \"geomagnetically induced currents\" OR GIC OR \"power grid\" OR \"power grids\" OR \"power system\" OR \"power transformer\" OR \"power transformers\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "sep_event|gnss": "abs:(\"solar energetic particle\" OR \"solar energetic particles\" OR \"solar proton event\" OR \"solar particle event\" OR \"SEP event\" OR \"SEP events\" OR \"solar flare\" OR \"solar flares\") AND abs:(GNSS OR GPS OR \"global positioning system\" OR \"satellite navigation\" OR GLONASS OR BeiDou) AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "sep_event|hf_radio": "abs:(\"solar energetic particle\" OR \"solar energetic particles\" OR \"solar proton event\" OR \"solar particle event\" OR \"SEP event\" OR \"SEP events\" OR \"solar flare\" OR \"solar flares\") AND abs:(\"HF radio\" OR \"high frequency radio\" OR \"HF communication\" OR \"radio blackout\" OR \"shortwave fadeout\" OR \"polar cap absorption\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "sep_event|satellites": "abs:(\"solar energetic particle\" OR \"solar energetic particles\" OR \"solar proton event\" OR \"solar particle event\" OR \"SEP event\" OR \"SEP events\" OR \"solar flare\" OR \"solar flares\") AND abs:(\"spacecraft charging\" OR \"surface charging\" OR \"single event upset\" OR \"single event effect\" OR \"satellite anomaly\" OR \"satellite anomalies\" OR \"satellite drag\" OR \"atmospheric drag\" OR \"orbital decay\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)",
+    "sep_event|power_grid": "abs:(\"solar energetic particle\" OR \"solar energetic particles\" OR \"solar proton event\" OR \"solar particle event\" OR \"SEP event\" OR \"SEP events\" OR \"solar flare\" OR \"solar flares\") AND abs:(\"geomagnetically induced current\" OR \"geomagnetically induced currents\" OR GIC OR \"power grid\" OR \"power grids\" OR \"power system\" OR \"power transformer\" OR \"power transformers\") AND year:[2000 TO 2026] AND doctype:(article OR inproceedings)"
+  },
+  "hits_per_query": {
+    "geomagnetic_storm|gnss": 1879,
+    "geomagnetic_storm|hf_radio": 118,
+    "geomagnetic_storm|satellites": 300,
+    "geomagnetic_storm|power_grid": 995,
+    "sep_event|gnss": 342,
+    "sep_event|hf_radio": 103,
+    "sep_event|satellites": 174,
+    "sep_event|power_grid": 103
+  },
+  "stats": {
+    "raw": 4014,
+    "duplicates": 399,
+    "unique": 3615,
+    "dropped_short": 496,
+    "dropped_non_english": 3,
+    "kept": 3116
+  }
+}
