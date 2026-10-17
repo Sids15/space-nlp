@@ -1,0 +1,188 @@
+{
+  "seed": 42,
+  "test_fraction": 0.1,
+  "min_count": 2,
+  "train_tokens_per_domain": 215539,
+  "results": [
+    {
+      "train": "space_weather",
+      "test": "space_weather",
+      "model": "bigram-mle",
+      "perplexity": null,
+      "zero_prob_rate": 0.2205,
+      "oov_rate": 0.0312,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "astrophysics",
+      "model": "bigram-mle",
+      "perplexity": null,
+      "zero_prob_rate": 0.3424,
+      "oov_rate": 0.1677,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "space_weather",
+      "model": "bigram-laplace",
+      "perplexity": 655.6,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0312,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "astrophysics",
+      "model": "bigram-laplace",
+      "perplexity": 907.2,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1677,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "space_weather",
+      "model": "trigram-laplace",
+      "perplexity": 2281.3,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0312,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "astrophysics",
+      "model": "trigram-laplace",
+      "perplexity": 3091.9,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1677,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "space_weather",
+      "model": "bigram-kn",
+      "perplexity": 121.6,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0312,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "astrophysics",
+      "model": "bigram-kn",
+      "perplexity": 278.2,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1677,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "space_weather",
+      "model": "trigram-kn",
+      "perplexity": 103.9,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0312,
+      "vocab": 5518
+    },
+    {
+      "train": "space_weather",
+      "test": "astrophysics",
+      "model": "trigram-kn",
+      "perplexity": 279.9,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1677,
+      "vocab": 5518
+    },
+    {
+      "train": "astrophysics",
+      "test": "space_weather",
+      "model": "bigram-mle",
+      "perplexity": null,
+      "zero_prob_rate": 0.3237,
+      "oov_rate": 0.1744,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "astrophysics",
+      "model": "bigram-mle",
+      "perplexity": null,
+      "zero_prob_rate": 0.2446,
+      "oov_rate": 0.0388,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "space_weather",
+      "model": "bigram-laplace",
+      "perplexity": 968.4,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1744,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "astrophysics",
+      "model": "bigram-laplace",
+      "perplexity": 844.6,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0388,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "space_weather",
+      "model": "trigram-laplace",
+      "perplexity": 3435.5,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1744,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "astrophysics",
+      "model": "trigram-laplace",
+      "perplexity": 2879.0,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0388,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "space_weather",
+      "model": "bigram-kn",
+      "perplexity": 257.8,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1744,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "astrophysics",
+      "model": "bigram-kn",
+      "perplexity": 148.7,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0388,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "space_weather",
+      "model": "trigram-kn",
+      "perplexity": 265.7,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.1744,
+      "vocab": 6241
+    },
+    {
+      "train": "astrophysics",
+      "test": "astrophysics",
+      "model": "trigram-kn",
+      "perplexity": 130.7,
+      "zero_prob_rate": 0.0,
+      "oov_rate": 0.0388,
+      "vocab": 6241
+    }
+  ]
+}
