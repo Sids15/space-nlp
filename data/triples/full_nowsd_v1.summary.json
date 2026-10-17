@@ -1,0 +1,26 @@
+{
+  "run": "full_nowsd",
+  "triples": 591,
+  "by_effect": {
+    "degradation": 544,
+    "outage": 35,
+    "mitigated": 11,
+    "no_effect": 1
+  },
+  "by_method": {
+    "dep_path": 172,
+    "dep_nominal": 165,
+    "dep_svo": 163,
+    "dep_prep": 82,
+    "dep_passive": 9
+  },
+  "by_pair": {
+    "geomagnetic_storm|power_grid": 231,
+    "geomagnetic_storm|gnss": 191,
+    "sep_event|gnss": 47,
+    "geomagnetic_storm|satellites": 41,
+    "sep_event|hf_radio": 36,
+    "sep_event|satellites": 24,
+    "geomagnetic_storm|hf_radio": 21
+  }
+}
