@@ -7,3 +7,5 @@ data/processed/*.spacy
 data/entities/
 # annotator exports stay local until double annotation is finished (keeps annotators independent)
 data/gold/exports/
+data/gold/diff_*.txt
+data/eval/errors_*.csv

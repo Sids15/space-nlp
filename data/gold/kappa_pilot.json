@@ -1,0 +1,12 @@
+{
+  "tasks": 30,
+  "only_in_a": 0,
+  "only_in_b": 0,
+  "kappa_event_token": 0.86,
+  "event_span_f1_exact": 0.704,
+  "kappa_system_token": 0.826,
+  "system_span_f1_exact": 0.769,
+  "effect_units": 10,
+  "kappa_effect": 0.375,
+  "gate_passed": false
+}

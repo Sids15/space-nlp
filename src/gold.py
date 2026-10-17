@@ -118,9 +118,9 @@ def sample(version, force):
 
 def _trim_edges(text, start, end):
     """Word-granularity highlights swallow trailing punctuation ("storms." / "(GICs),"); drop it for both annotators."""
-    while start < end and (text[start].isspace() or text[start] in ".,;:"):
+    while start < end and (text[start].isspace() or text[start] in ".,;:-"):
         start += 1
-    while start < end and (text[end - 1].isspace() or text[end - 1] in ".,;:"):
+    while start < end and (text[end - 1].isspace() or text[end - 1] in ".,;:-"):
         end -= 1
     if text[start] == "(" and text[end - 1] == ")" and "(" not in text[start + 1:end - 1]:
         start, end = start + 1, end - 1  # "(GICs)" -> "GICs"
@@ -225,6 +225,34 @@ def kappa(path_a, path_b, out_name):
     return result
 
 
+def merge(path_a, path_b, out, seed):
+    """Final gold: A's export, except each sentence where A and B disagree takes one annotator's
+    whole annotation, chosen at random (seeded). Writes the choices next to the output for the report."""
+    raw_a = json.loads(Path(path_a).read_text(encoding="utf-8"))
+    raw_b = {t["data"]["id"]: t for t in json.loads(Path(path_b).read_text(encoding="utf-8"))}
+    a, b = load_export(path_a), load_export(path_b)
+    rng = random.Random(seed)
+    choices = {}
+    for task in raw_a:
+        tid = task["data"]["id"]
+        if tid not in b:
+            continue
+        if (set(a[tid]["entities"]), a[tid]["triples"]) == (set(b[tid]["entities"]), b[tid]["triples"]):
+            choices[tid] = "agreed"
+        else:
+            choices[tid] = rng.choice("AB")
+            if choices[tid] == "B":
+                task["annotations"] = raw_b[tid]["annotations"]
+    out = Path(out)
+    out.write_text(json.dumps(raw_a, ensure_ascii=False), encoding="utf-8")
+    counts = {k: sum(v == k for v in choices.values()) for k in ("agreed", "A", "B")}
+    record = {"method": "disagreements resolved by seeded random choice of annotator, per sentence",
+              "seed": seed, "a": str(path_a), "b": str(path_b), "single_annotated_from_a": len(raw_a) - len(choices),
+              "counts": counts, "choices": choices}
+    out.with_suffix(".adjudication.json").write_text(json.dumps(record, indent=1), encoding="utf-8")
+    print(json.dumps({k: v for k, v in record.items() if k != "choices"}, indent=1))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -239,13 +267,21 @@ def main():
     k.add_argument("export_a", type=Path)
     k.add_argument("export_b", type=Path)
     k.add_argument("--out", default="round1", help="name for data/gold/kappa_<out>.json")
+    m = sub.add_parser("merge", help="final gold: A, with disagreements settled by seeded random choice")
+    m.add_argument("export_a", type=Path)
+    m.add_argument("export_b", type=Path)
+    m.add_argument("--out", type=Path, required=True)
+    m.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
+    sys.stdout.reconfigure(encoding="utf-8")  # sentences hold characters a redirected cp1252 console can't print
     if args.cmd == "sample":
         sample(args.version, args.force)
     elif args.cmd == "tasks":
         write_tasks(args.version)
     elif args.cmd == "diff":
         diff(args.export_a, args.export_b)
+    elif args.cmd == "merge":
+        merge(args.export_a, args.export_b, args.out, args.seed)
     else:
         for p in (args.export_a, args.export_b):
             if not p.exists():
