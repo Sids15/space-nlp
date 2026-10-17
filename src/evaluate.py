@@ -9,7 +9,7 @@ Scores every run that exists on disk against the gold sentences:
             labelled (event, system, effect) and unlabelled (event, system) per sentence,
             with a 95% bootstrap interval over sentences and a paired bootstrap against the baseline
 
-Writes data/eval/results_<v>.json and data/eval/errors_<v>.csv (false positives / negatives of the
+Writes data/eval/results_<gold>_<v>.json and data/eval/errors_<gold>_<v>.csv (false positives / negatives of the
 full run, with an empty `category` column for the error analysis).
 """
 
@@ -171,7 +171,7 @@ def main():
     if "full" not in ent_runs or "full" not in tri_runs:
         sys.exit("Run entities.py and effects.py first (data/entities/full_*.jsonl, data/triples/full_*.jsonl).")
 
-    results = {"gold": str(args.gold.relative_to(ROOT)), "sentences": len(gold),
+    results = {"gold": args.gold.resolve().relative_to(ROOT).as_posix(), "sentences": len(gold),
                "gold_entities": sum(len(g["entities"]) for g in gold.values()),
                "gold_triples": sum(len(gold_triples(g, True)) for g in gold.values()),
                "entities": {r: score_entities(gold, e) for r, e in ent_runs.items()},
@@ -191,9 +191,9 @@ def main():
     print("\nPhase 1 gate:", json.dumps(results["phase1_gate"]))
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / f"results_{args.version}.json"
+    out = OUT_DIR / f"results_{args.gold.stem}_{args.version}.json"
     out.write_text(json.dumps(results, indent=1), encoding="utf-8")
-    err = OUT_DIR / f"errors_{args.version}.csv"
+    err = OUT_DIR / f"errors_{args.gold.stem}_{args.version}.csv"
     rows = errors(gold, ent_runs["full"], tri_runs["full"])
     write_csv(err, rows, ["kind", "id", "item", "category", "sentence"])
     print(f"-> {out.relative_to(ROOT)}\n-> {err.relative_to(ROOT)} ({len(rows)} errors to categorise)")
