@@ -105,6 +105,30 @@ A seeded 50-error sample for the hand-done analysis is in `data/eval/errors_test
 
 Source: `data/eval/results_test_gold_v1.json`
 
+### Error analysis (seeded sample of 50 errors, categorised by the AI assistant, see disclosure 2)
+
+| Group | Category | Count |
+|---|---|---|
+| Span boundary (19) | intensity modifier kept ("intense geomagnetic storm" vs gold "geomagnetic storm") | 8 |
+| | head noun dropped ("GPS" vs gold "GPS stations", "HF radio" vs "HF radio wave") | 7 |
+| | system word used as a modifier ("spacecraft potential", "satellite anomalies") | 2 |
+| | slash compound ("GPS/BeiDou") | 1 |
+| | acronym in parentheses | 1 |
+| Lexicon (7) | effect or phenomenon tagged as a system ("surface charging", "orbital decay") | 6 |
+| | term not in the gazetteer ("space probes") | 1 |
+| Word sense (2) | "ionospheric storm" read as geomagnetic storm | 2 |
+| Reference (1) | anaphoric "this storm" | 1 |
+| Relation (6) | effect only implied, no cue word | 2 |
+| | cause through a chain (flare → D-layer → HF) | 1 |
+| | NOAA scale name, not a reported effect | 1 |
+| | purpose clause ("in order to understand the effect") | 1 |
+| | weak cue ("reflect the storm impacts") | 1 |
+| Gold set (15) | gold label wrong (e.g. "solar radiation storms" as geomagnetic storm) | 7 |
+| | gold misses a valid mention or triple | 6 |
+| | gold inconsistent between similar sentences | 2 |
+
+Source: `category` column of `data/eval/errors_test_gold_v1_sample50.csv`
+
 ## 6. Evidence matrix (full pipeline)
 
 | Event → system | Papers | Majority effect | Agreement | Status |
@@ -148,7 +172,8 @@ Source: `data/retrieval/eval_v1.json`, judgments in `data/retrieval/judgments_v1
 1. **AI-written code.** The pipeline code was written with an AI assistant (Claude). The PRD says
    "all pipeline code is written by the team", and the team accepted this deviation.
 2. **AI-chosen seeds and AI-made relevance labels.** The 30 seed abstracts, the y/n labels of the
-   50-abstract cut-off sample (section 2) and all 391 retrieval relevance judgments (section 7) were produced
+   50-abstract cut-off sample (section 2), all 391 retrieval relevance judgments (section 7) and the categories
+   of the 50-error sample (section 5) were produced
    by the AI assistant, not by the team. The same assistant wrote the retrieval code, so P@5 is not an
    independent measurement; system names were hidden in the judgment file.
 3. **Human gold labels.** All gold labels (pilot, test) were made by two human annotators in Label Studio.
