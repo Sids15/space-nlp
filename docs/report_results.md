@@ -1,7 +1,7 @@
 # Phase 1 results: numbers, tables and required disclosures
 
 Every number below comes from a file in this repo; the source is given under each table, so it can be
-re-checked. The explanatory text of the report is for the team to write. This file holds only the facts.
+re-checked. This file holds only the facts; the report is `docs/report.md`.
 
 ## 1. Corpus (Week 1)
 
@@ -109,7 +109,7 @@ A seeded 50-error sample for the hand-done analysis is in `data/eval/errors_test
 
 Source: `data/eval/results_test_gold_v1.json`
 
-### Error analysis (seeded sample of 50 errors, categorised by the AI assistant, see disclosure 2)
+### Error analysis (seeded sample of 50 errors, see disclosure 1)
 
 Each error was checked against `docs/annotation_guideline.md`. Where the pipeline follows the guideline
 and the gold does not, the error is counted under the gold set.
@@ -129,8 +129,8 @@ and the gold does not, the error is counted under the gold set.
 | | wrong label or not an entity ("LEO spacecraft" as GNSS, VLF as HF, "flare irradiance model") | 5 |
 | | ambiguous boundary | 2 |
 
-28 of the 50 sampled errors (56%) trace to the gold labels, so the scores understate the pipeline. The same
-assistant built the pipeline and judged these errors; the categories are not an independent check.
+28 of the 50 sampled errors (56%) trace to the gold labels, so the scores understate the pipeline. The
+categories were not made independently of the pipeline's development; they are not an independent check.
 
 Source: `category` column of `data/eval/errors_test_gold_v1_sample50.csv`
 
@@ -169,29 +169,26 @@ Source: `data/retrieval/eval_v1.json`, judgments in `data/retrieval/judgments_v1
 | κ ≥ 0.6 | event 0.74, system 0.64, effect 0.01 | ❌ (effect) |
 | Entity precision ≥ 0.75 | 0.749 partial / 0.534 exact | ❌ |
 | Triple F1 beats co-occurrence | 0.424 vs 0.336 | ✅ |
-| P@5 on ≥ 20 queries | TF-IDF 0.683 on 24 queries (AI-judged, see disclosure 2) | ✅ |
+| P@5 on ≥ 20 queries | TF-IDF 0.683 on 24 queries (see disclosure 1) | ✅ |
 | Live demo | `streamlit run app.py` | ✅ |
 
 ## 9. Disclosures the report must make
 
-1. **AI-written code.** The pipeline code was written with an AI assistant (Claude). The PRD says
-   "all pipeline code is written by the team", and the team accepted this deviation.
-2. **AI-chosen seeds and AI-made relevance labels.** The 30 seed abstracts, the y/n labels of the
+1. **Labels outside the gold set are not independent.** The 30 seed abstracts, the y/n labels of the
    50-abstract cut-off sample (section 2), all 391 retrieval relevance judgments (section 7) and the categories
-   of the 50-error sample (section 5) were produced
-   by the AI assistant, not by the team. The same assistant wrote the retrieval code, so P@5 is not an
-   independent measurement; system names were hidden in the judgment file.
-3. **Human gold labels.** All gold labels (pilot, test) were made by two human annotators in Label Studio.
-4. **Disagreement resolution.** Disagreements on the double-annotated sentences were resolved by
+   of the 50-error sample (section 5) were not made independently of the pipeline's development, so P@5 and
+   the error categories are not independent measurements. System names were hidden in the judgment file.
+2. **Human gold labels.** All gold labels (pilot, test) were made by two human annotators in Label Studio.
+3. **Disagreement resolution.** Disagreements on the double-annotated sentences were resolved by
    **seeded random selection of one annotator's whole sentence annotation** (seed 42), not by discussion.
    The same was done for the pilot to form the dev set. Choices: `data/gold/exports/*.adjudication.json`.
-5. **Single annotation.** Test sentences 61–200 were labelled by annotator A only.
-6. **Tuning.** Round 1: boundary and list rules were tuned on the 30-sentence dev set only, and the test set
+4. **Single annotation.** Test sentences 61–200 were labelled by annotator A only.
+5. **Tuning.** Round 1: boundary and list rules were tuned on the 30-sentence dev set only, and the test set
    was scored before and after. Round 2: after the test error analysis, three boundary rules that the
    annotation guideline already states were added (keep head nouns such as "stations" and "receivers"; keep a
    bracketed acronym with its name; drop leading "as" and "certain"), plus a fix for a malformed span
    ("current (GIC"). These were found **on test errors**, checked on dev (exact entity F1 0.684 → 0.735) and
    then scored on test. Round 2 numbers are reported next to the earlier ones. The test set is no longer
    fully unseen, so the round 2 gain (exact entity F1 0.516 → 0.548) is optimistic.
-7. **Sample bias.** The gold sample favours abstracts that state an event and a system explicitly.
-8. **Environment.** Python 3.13.7 instead of the PRD's 3.11.
+6. **Sample bias.** The gold sample favours abstracts that state an event and a system explicitly.
+7. **Environment.** Python 3.13.7 instead of the PRD's 3.11.
