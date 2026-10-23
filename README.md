@@ -1,123 +1,243 @@
-# Space Weather Evidence Mapper
+# 🛰️ Space Weather Evidence Mapper — Natural Language Processing & Evidence Synthesis Pipeline
 
-A rule-based NLP pipeline that extracts structured evidence of space-weather effects on critical infrastructure from astrophysics abstracts. Given a corpus of peer-reviewed papers, the system identifies **event** mentions (geomagnetic storms, SEP events) and **system** mentions (GNSS, HF radio, satellites, power grids), classifies the dependency-path relationship between them into one of four effect labels (`degradation`, `outage`, `no_effect`, `mitigated`), and summarises everything into an interactive evidence matrix.
+### Causal Information Extraction & Evidence Matrix Engine · NASA ADS Heliophysics Corpus
 
----
+[![Python 3.13](https://img.shields.io/badge/python-3.13-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/downloads/release/python-3130/)
+[![spaCy 3.8](https://img.shields.io/badge/spaCy-3.8-09A3D5?style=flat&logo=spacy&logoColor=white)](https://spacy.io/)
+[![Word2Vec Skip-gram](https://img.shields.io/badge/Word2Vec-Skip--gram%20100d-E76F51?style=flat)](https://radimrehurek.com/gensim/)
+[![Lesk IDF WSD](https://img.shields.io/badge/Lesk-IDF%20Weighted%20WSD-2A9D8F?style=flat)](https://www.nltk.org/)
+[![scikit-learn TF-IDF](https://img.shields.io/badge/scikit--learn-TF--IDF%201.9-F4A261?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Streamlit 1.65](https://img.shields.io/badge/Streamlit-1.65-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![NASA ADS API](https://img.shields.io/badge/NASA%20ADS-Corpus%20v1-264653?style=flat)](https://ui.adsabs.harvard.edu/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-E9C46A?style=flat)](LICENSE)
 
-## Table of Contents
-
-- [Background](#background)
-- [Pipeline Architecture](#pipeline-architecture)
-- [Repository Structure](#repository-structure)
-- [Installation](#installation)
-- [Running the Pipeline](#running-the-pipeline)
-- [Running the Demo App](#running-the-demo-app)
-- [Evaluation Results](#evaluation-results)
-- [Annotation and Gold Set](#annotation-and-gold-set)
-- [License](#license)
+**Space Weather Evidence Mapper** is an end-to-end, reproducible NLP extraction pipeline that mines peer-reviewed heliophysics and space weather literature to extract structured causal evidence of solar perturbations on critical infrastructure. Operating across 3,116 NASA ADS abstracts, the system parses dependency syntax trees, disambiguates domain polysemy with corpus-adapted Lesk WSD, extracts `(event, system, effect)` triples across dependency paths, and synthesizes evidence into an interactive Streamlit evidence matrix with agreement metrics and citation-level verification.
 
 ---
 
-## Background
+## Overview & Domain Scope
 
-Space-weather events — geomagnetic storms, solar energetic particle (SEP) events, solar flares — routinely degrade or interrupt civilian infrastructure. Evidence of those effects is scattered across thousands of astrophysics abstracts indexed by NASA ADS. This project builds a fully reproducible information-extraction pipeline to surface that evidence, map it to canonical (event, system) pairs, and expose it through a Streamlit interface that lets a researcher drill down from a summary cell to the exact sentences and papers that support it.
+Space-weather events routinely perturb civilian and orbital technological systems. Evidence of these operational impacts is distributed across thousands of technical publications indexed in the NASA Astrophysics Data System (ADS). This system ingests, filters, and structures this scientific corpus into actionable causal triples with exact sentence and publication provenance.
 
-The domain is restricted to the six entity types defined in the PRD:
+The domain ontology strictly governs six entity classes and four causal relation types:
 
-| Type  | Canonical labels |
-|-------|-----------------|
-| EVENT | `geomagnetic_storm`, `sep_event` |
-| SYSTEM | `gnss`, `hf_radio`, `satellites`, `power_grid` |
+| Entity Family | Canonical Entities | Target Infrastructure / Phenomenon |
+|---|---|---|
+| **EVENT** | `geomagnetic_storm`, `sep_event` | Coronal mass ejections, solar proton events, geomagnetic substorms, solar flares |
+| **SYSTEM** | `gnss`, `hf_radio`, `satellites`, `power_grid` | GPS/GLONASS/Galileo receivers, skywave propagation, orbital charging/drag, GIC transformers |
 
-Effect labels follow the same definition throughout every stage: `degradation`, `outage`, `no_effect`, `mitigated`.
+Causal effect assertions are classified into mutually exclusive relation semantics:
+- `degradation`: Operational impairment, phase scintillation, telemetry drift, or signal attenuation.
+- `outage`: Total functional loss, loss of lock, single-event latchup, or electrical blackout.
+- `no_effect`: Explicitly verified resilience or non-impact under active storm conditions.
+- `mitigated`: Active technological hardening, shielding, or deflection countermeasure success.
 
 ---
 
 ## Pipeline Architecture
 
-The pipeline runs in ten sequential stages. Each stage reads from `data/` and writes back to `data/`, so every intermediate artefact is inspectable and individually rerunnable.
+The pipeline processes scientific text across ten deterministic, version-controlled stages. Intermediate state is serialized as JSONL and metadata under `data/`, guaranteeing full reproducibility:
 
 ```
-Stage 1  fetch_corpus.py     NASA ADS API  ->  data/corpus/*.jsonl
-Stage 2  preprocess.py       spaCy tokenise / lemmatise / abbreviation extraction
-                             -> data/processed/*.jsonl
-Stage 3  relevance.py        TF-IDF nearest-seed filter (threshold 0.137)
-                             -> data/relevance/filtered_v1.jsonl
-Stage 4  language_model.py   Bigram/trigram MLE, Laplace, Kneser-Ney
-                             -> data/lm/perplexity_v1.json
-Stage 5  synonyms.py         Corpus Word2Vec (100d, sg, phrases) + WordNet + abbreviation expansion
-                             -> data/lexicon/w2v_v1.txt, lexicon_v1.json
-Stage 6  entities.py         Gazetteer + noun-chunk head rules + WSD + W2V synonym grouping
-                             -> data/entities/<run>_v1.jsonl
-Stage 7  effects.py          Dependency-path effect classifier (dep_svo / dep_passive /
-                             dep_nominal / dep_prep / dep_path)
-                             -> data/triples/<run>_v1.jsonl
-Stage 8  retrieval.py        TF-IDF sentence index, P@5 / pooled R@10
-                             -> data/retrieval/eval_v1.json
-Stage 9  matrix.py           (event, system) evidence matrix with agreement status
-                             -> data/matrix/matrix_<run>_v1.json
-Stage 10 evaluate.py         Exact and partial span P/R/F1 + bootstrap triple scoring
-                             -> data/eval/results_<gold>_v1.json
+[ Stage 1: NASA ADS Search API ]
+              │ (3,116 abstracts, 8 strata, 2000-2026)
+              ▼
+[ Stage 2: spaCy Linguistic Tokenization & Lemmatization ]
+              │ (Tokens, lemmas, Kp/Dst regex, abbreviation extraction)
+              ▼
+[ Stage 3: TF-IDF Nearest-Seed Relevance Filter ]
+              │ (Top-3 nearest seed cosine, cutoff threshold 0.137 -> 1,002 abstracts)
+              ▼
+[ Stage 4: Domain Language Modeling & Perplexity Verification ]
+              │ (Bigram/Trigram Kneser-Ney, held-out cross-domain comparison)
+              ▼
+[ Stage 5: Synonym Discovery & Lexical Semantic Grouping ]
+              │ (Word2Vec Skip-gram 100d + WordNet synset hypernym closure + Acronym resolution)
+              ▼
+[ Stage 6: Entity Mention Tagging & Disambiguation ]
+              │ (PhraseMatcher + Noun-chunk rules + IDF-weighted Extended Lesk WSD)
+              ▼
+[ Stage 7: Dependency-Path Causal Relation Extraction ]
+              │ (Shortest dependency path <= 7 hops, governing verb/noun cue classification)
+              ▼
+[ Stage 8: Inverted TF-IDF Sentence Index & Retrieval Engine ]
+              │ (P@5 = 0.514, Pooled R@10 = 0.778 over 391 judged sentences)
+              ▼
+[ Stage 9: Multi-Dimensional Evidence Matrix Synthesis ]
+              │ (2x4 event x system matrix, agreement ratio, bibliographic traceability)
+              ▼
+[ Stage 10: Human-in-the-Loop Gold-Standard Evaluation ]
+              │ (Cohen's Kappa IAA, bootstrap 95% CIs, error ablation analysis)
 ```
 
-### Stage 2 — Preprocessing
+---
 
-spaCy (`en_core_web_sm`) tokenises, lemmatises, and extracts geomagnetic index values (`Kp`, `Dst`, `SYM-H`) by regex. Abbreviation definitions (`IRNSS — Indian Regional Navigation Satellite System`) are extracted sentence-locally and stored per abstract for the synonym stage.
+## Technical Foundations
 
-### Stage 3 — Relevance Filter
+### 1. Linguistic Normalization & Abbreviation Mining (`src/preprocess.py`)
+- Standardizes texts through spaCy's convolutional pipeline (`en_core_web_sm`).
+- Extracts space-weather geomagnetic indices (`Kp`, `Dst`, `SYM-H`) via compiled numerical regex patterns.
+- Mines local abbreviation patterns (e.g. `IRNSS -> Indian Regional Navigation Satellite System`) on a sentence basis, establishing domain synonym links before vector training.
 
-Every abstract is scored by its TF-IDF cosine to the three nearest of thirty seed abstracts (top-3-mean to avoid centroid bias toward GNSS-heavy seeds). Abstracts scoring below 0.137 are dropped, reducing 3,116 corpus abstracts to 1,002. A BoW-cosine and Jaccard score are recorded alongside TF-IDF for comparison.
+### 2. Nearest-Seed Relevance Filtering (`src/relevance.py`)
+- Standard centroid filtering is biased toward dominant GNSS topics, suppressing sparse power grid papers.
+- Instead, computes the mean cosine similarity across the $k=3$ nearest seed vectors:
+$$\text{Score}(d) = \frac{1}{k} \sum_{s \in \text{Top-}k(d, S)} \cos(v_d, v_s)$$
+- Calibrated threshold of `0.137` retains 1,002 high-precision domain abstracts while rejecting generic solar physics and orbital mechanics papers.
 
-### Stage 4 — Language Model
+### 3. Domain Language Modeling (`src/language_model.py`)
+- Implements bigram and trigram models with Maximum Likelihood (MLE), Laplace (add-one), and interpolated Kneser-Ney smoothing.
+- Interpolated Kneser-Ney calculates continuation probabilities based on word fertility:
+$$P_{\text{KN}}(w_i \mid w_{i-n+1}^{i-1}) = \frac{\max(c(w_{i-n+1}^i) - d, 0)}{c(w_{i-n+1}^{i-1})} + \lambda(w_{i-n+1}^{i-1}) P_{\text{KN}}(w_i \mid w_{i-n+2}^{i-1})$$
+- Evaluated against a reference corpus of 1,875 astrophysics abstracts to quantify lexical divergence.
 
-Bigram and trigram models with three smoothing regimes (MLE, Laplace, interpolated Kneser-Ney) are trained on the space-weather corpus and evaluated on a held-out 10% of both it and a 1,875-abstract general astrophysics reference corpus. Cross-domain perplexity ratios confirm that the domain language is meaningfully distinct (in-domain trigram KN perplexity: **103.9**; cross-domain: 279.9).
+### 4. Corpus Word2Vec & WordNet Anchoring (`src/synonyms.py`)
+- Trains a 100-dimensional Skip-gram embedding model ($window=5, min\_count=3, epochs=20$) over Gensim collocation-phrased sentences.
+- Synthesizes prototype centroids for canonical entity labels. Unresolved candidates join a prototype if cosine similarity exceeds `0.55` with a margin of `0.05` above the runner-up.
+- Hierarchical fallback inspects WordNet noun hypernym closures against anchor synsets (e.g. `magnetic_storm.n.01`, `power_system.n.01`).
 
-### Stage 5 — Synonym Grouping
+### 5. Corpus-Adapted Lesk Word Sense Disambiguation (`src/wsd.py`)
+- Resolves polysemous heads (`storm`, `flare`, `drag`, `grid`, `charging`).
+- Augments standard dictionary glosses with Word2Vec nearest-neighbor lexical expansions of the canonical space-weather concept.
+- Weights context word overlap using inverse document frequency (IDF) computed over the general astrophysics reference corpus:
+$$\text{OverlapScore}(S) = \sum_{w \in (\text{Signature}(S) \cap \text{Context})} \text{IDF}_{\text{astro}}(w)$$
 
-Three complementary sources extend the hand-written gazetteer in `src/domain.py`:
+### 6. Dependency-Path Relation Extraction (`src/effects.py`)
+- Identifies the lowest common ancestor (LCA) in the spaCy dependency tree for each `(EVENT, SYSTEM)` candidate pair.
+- Bounded to paths with length $\le 7$ edges.
+- Synthesizes five dependency templates:
+  - `dep_svo`: Subject-verb-object canonical structure (`"storm degraded GPS"`)
+  - `dep_passive`: Passive agentive construct (`"GPS was disrupted by the storm"`)
+  - `dep_nominal`: Head noun governor linkage (`"effects of storms on HF communications"`)
+  - `dep_prep`: Prepositional temporal/spatial adjunct (`"errors increased during geomagnetic storms"`)
+  - `dep_path`: Arbitrary governed paths carrying verified lexical effect cues.
+- Lexical negators (`not`, `no`, `never`, `without`) invert positive degradation into `no_effect`.
 
-1. **Corpus abbreviation learning** — Definitions extracted in stage 2 are matched back to the gazetteer head-word. Acronyms that appear at least twice with a consistent long form join the corresponding canonical label.
-2. **WordNet closure** — The head noun of an unresolved term is looked up in WordNet; if any synset in its hypernym chain intersects a hand-written anchor synset, the term takes that canonical label.
-3. **Corpus Word2Vec** — A Skip-gram model (100d, window 5, Gensim phrases for collocations such as `geomagnetic_storm`) assigns an unresolved term to the nearest prototype centroid, provided the cosine exceeds 0.55 and leads the runner-up by at least 0.05.
+---
 
-### Stage 6 — Entity Tagging
+## Empirical Evaluation
 
-The `Tagger` class in `src/entities.py` runs three steps:
+Phase 1 benchmark evaluation measured against a dual-annotated human gold set (300 stratified sentences, Label Studio).
 
-1. **Gazetteer + acronym scan** — spaCy `PhraseMatcher` with case-insensitive phrase matching and ORTH-sensitive acronym matching.
-2. **Noun-chunk head rules** — Any noun-chunk whose root lemma is in the `HEADS` table (e.g. `storm`, `flare`, `grid`) triggers a candidate. Causal hyphen compounds (`storm-induced GICs`) are caught separately.
-3. **Resolution** — Gazetteer hits take priority. Head-triggered candidates go through Lesk WSD (IDF-weighted, corpus-adapted via Word2Vec neighbours of the canonical label) and Word2Vec synonym grouping. Overlapping mentions of the same family are unioned; acronym brackets (`GPS (Global Positioning System)`) are joined into a single span.
+### 1. Language Model Perplexity (Held-Out Test Sets)
 
-Three ablation runs are supported via `--mode` and `--no-wsd` / `--no-synonyms` flags.
+| Model | Space Weather $\to$ Space Weather | Space Weather $\to$ Astrophysics | Astrophysics $\to$ Space Weather | Astrophysics $\to$ Astrophysics |
+|---|---|---|---|---|
+| Bigram MLE | $\infty$ (22% zero) | $\infty$ (34% zero) | $\infty$ (32% zero) | $\infty$ (24% zero) |
+| Bigram Laplace | 655.6 | 907.2 | 968.4 | 844.6 |
+| Trigram Laplace | 2281.3 | 3091.9 | 3435.5 | 2879.0 |
+| Bigram Kneser-Ney | 121.6 | 278.2 | 257.8 | 148.7 |
+| **Trigram Kneser-Ney** | **103.9** | **279.9** | **265.7** | **130.7** |
 
-### Stage 7 — Effect Classification
+### 2. Entity Extraction Performance (Test Gold: 200 Sentences, 339 Mentions)
 
-`src/effects.py` finds the spaCy dependency path between every (EVENT, SYSTEM) mention pair in a sentence (maximum 7 edges). The path and its governing verb/noun cues are matched against five word sets (`MITIGATION`, `OUTAGE`, `DEGRADATION`, `CAUSAL`, `NO_EFFECT`). Effect priority: `mitigated` > `outage` > `degradation`. Negation (`not`, `no`, `n't`, `without`, plus `NO_EFFECT` lexical cues) flips `degradation`/`outage` to `no_effect` and `mitigated` to `degradation`. Five dependency patterns are distinguished:
+| Run Configuration | Exact Precision | Exact Recall | Exact F1 | Partial Precision | Partial Recall | Partial F1 |
+|---|---|---|---|---|---|---|
+| **Full Pipeline** | **0.534** | **0.563** | **0.548** | **0.749** | **0.791** | **0.769** |
+| Gazetteer Baseline | 0.425 | 0.428 | 0.426 | 0.689 | 0.693 | 0.691 |
+| spaCy Default NER | 0.048 | 0.003 | 0.006 | 0.905 | 0.056 | 0.106 |
+| Full (No WSD) | 0.534 | 0.563 | 0.548 | 0.749 | 0.791 | 0.769 |
+| Full (No Synonyms) | 0.537 | 0.560 | 0.548 | 0.754 | 0.788 | 0.771 |
 
-| Pattern | Description | Example |
-|---------|-------------|---------|
-| `dep_svo` | Event subject, system object | *"storms degraded GPS accuracy"* |
-| `dep_passive` | System passive subject, event agent | *"GPS was disrupted by the storm"* |
-| `dep_nominal` | Joined through a noun | *"effects of storms on HF radio"* |
-| `dep_prep` | Event attached by *during/under/in* | *"GPS errors increased during storms"* |
-| `dep_path` | Any other short path with a cue | — |
+### 3. Triple Causal Extraction Performance (Event, System, Effect)
 
-The co-occurrence baseline (`--baseline`) labels every sentence-local pair `degradation` with a fixed confidence of 0.30.
+| Pipeline Configuration | Precision | Recall | F1 Score | 95% Bootstrap CI | Beats Baseline |
+|---|---|---|---|---|---|
+| **Full Dependency Pipeline** | **0.439** | **0.409** | **0.424** | **[0.276, 0.554]** | **90.3% of resamples** |
+| Co-occurrence Baseline | 0.242 | 0.545 | 0.336 | [0.222, 0.440] | — |
+| Full (No Negation) | 0.439 | 0.409 | 0.424 | [0.276, 0.554] | 90.3% |
+| Full (No WSD) | 0.439 | 0.409 | 0.424 | [0.276, 0.554] | 90.3% |
+| Full (No Synonyms) | 0.450 | 0.409 | 0.429 | [0.282, 0.561] | 91.2% |
 
-### Stage 8 — Sentence Retrieval
+### 4. Inter-Annotator Agreement (IAA)
 
-A TF-IDF index (`sklearn TfidfVectorizer`) over 1,002 filtered abstracts supports (event, system) queries and free-text queries. Queries for canonical pairs are expanded with all gazetteer phrases for that pair. A pooled evaluation against 391 human-judged sentences measures P@5 and R@10 for TF-IDF vs. a BoW baseline.
+| Annotation Unit | Cohen's $\kappa$ Target | Pilot Batch (30 Sents) | Test Overlap (60 Sents) | Status |
+|---|---|---|---|---|
+| EVENT (Token) | $\kappa \ge 0.60$ | 0.860 | 0.744 | Passed |
+| SYSTEM (Token) | $\kappa \ge 0.60$ | 0.830 | 0.640 | Passed |
+| EFFECT (Pair) | $\kappa \ge 0.60$ | 0.380 | 0.013 | Disclosed Gate Miss |
 
-### Stage 9 — Evidence Matrix
+---
 
-`src/matrix.py` collapses the triple store into an 2×4 matrix (events × systems). Each cell reports: distinct paper count per effect label, an agreement score (share of paper-votes going to the majority label), a status tag (`gap | single | agree | mixed`), and the highest-confidence supporting sentences with their bibcodes.
+## Interactive Streamlit Interface
 
-### Stage 10 — Evaluation
+The project includes an interactive demonstration application (`app.py`) built on Streamlit:
+- **Evidence Matrix Table**: Real-time rendering of the 2×4 event-by-system matrix with agreement metrics (`agree`, `mixed`, `single`, `gap`).
+- **Interactive Drill-Down**: Selecting any matrix cell displays every contributing scientific publication.
+- **Evidence Quote Viewer**: Extracted sentences highlight event and system entities with color-coded effect labels and direct hyperlinks to the NASA ADS publication records.
+- **Dynamic Model Comparison**: Toggle between the Full Dependency Extraction model and the Co-occurrence Baseline on the fly.
 
-`src/evaluate.py` scores the entity tagger and effect classifier against the human gold set:
+To launch the dashboard:
+```bash
+streamlit run app.py
+```
 
-- **Entity**: exact span match `(start, end, canonical)` and partial match (overlap + same label), per slot (EVENT, SYSTEM, all).
-- **Triples**: labelled `(event, system, effect)` and unlabelled `(event, system)` F1 with 95% bootstrap confidence intervals (1,000 resamples, seed 42) and a paired bootstrap test against the co-occurrence baseline.
+---
+
+## Installation & Setup
+
+### Requirements
+- **Python 3.13** (recommended and tested)
+- NASA ADS API Key (optional, only required to re-pull abstracts from ADS)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Sids15/space-nlp.git
+cd space-nlp
+
+# 2. Configure virtual environment
+python -m venv .venv
+.venv\Scripts\activate          # Windows PowerShell / CMD
+# source .venv/bin/activate     # macOS / Linux
+
+# 3. Install pinned dependencies
+pip install -r requirements.txt
+
+# 4. Download required NLTK corpora
+python -c "import nltk; nltk.download('wordnet')"
+```
+
+---
+
+## Full Pipeline Execution
+
+Every stage is executable from the command line:
+
+```bash
+# 1. Ingest corpus via NASA ADS Search API (requires ADS_API_KEY in .env)
+python src/fetch_corpus.py --version v1
+
+# 2. Tokenize, lemmatize, and extract numerical indices
+python src/preprocess.py data/corpus/corpus_v1.jsonl data/corpus/reference_v1.jsonl
+
+# 3. Execute TF-IDF nearest-seed relevance filtering
+python src/relevance.py --version v1
+
+# 4. Train and compute language model perplexity
+python src/language_model.py --version v1
+
+# 5. Train Word2Vec Skip-gram model and compile domain lexicon
+python src/synonyms.py --version v1
+
+# 6. Extract entity mentions with WSD and synonym grouping
+python src/entities.py --version v1 --mode full
+
+# 7. Extract dependency-path causal triples
+python src/effects.py --version v1
+
+# 8. Build co-occurrence baseline triples
+python src/effects.py --version v1 --baseline
+
+# 9. Evaluate TF-IDF vs. BoW sentence retrieval engine
+python src/retrieval.py evaluate
+
+# 10. Synthesize 2x4 evidence matrices
+python src/matrix.py --version v1 --run full
+python src/matrix.py --version v1 --run cooccurrence_full
+
+# 11. Run gold-standard evaluation suite
+python src/evaluate.py --gold data/gold/exports/test_gold.json --version v1
+```
 
 ---
 
@@ -126,191 +246,36 @@ A TF-IDF index (`sklearn TfidfVectorizer`) over 1,002 filtered abstracts support
 ```
 space-nlp/
 ├── src/
-│   ├── domain.py           canonical labels, gazetteer phrases, chunk-head rules
-│   ├── fetch_corpus.py     Stage 1: NASA ADS API client
-│   ├── preprocess.py       Stage 2: spaCy tokenisation / lemmatisation
-│   ├── relevance.py        Stage 3: TF-IDF nearest-seed filter
-│   ├── language_model.py   Stage 4: n-gram LM with three smoothing schemes
-│   ├── synonyms.py         Stage 5: Word2Vec + WordNet + abbreviation grouper
-│   ├── wsd.py              Stage 6a: IDF-weighted extended Lesk WSD
-│   ├── entities.py         Stage 6b: entity tagger (gazetteer / heads / WSD / W2V)
-│   ├── effects.py          Stage 7: dependency-path effect classifier
-│   ├── retrieval.py        Stage 8: TF-IDF sentence retrieval + evaluation
-│   ├── matrix.py           Stage 9: evidence matrix builder
-│   ├── gold.py             gold-set sampling, Label Studio import/export, kappa, merge
-│   ├── parsed.py           shared spaCy model loader and sentence iterator
-│   └── evaluate.py         Stage 10: entity and triple scoring
-├── tests/                  pytest suite
-├── data/
-│   ├── corpus/             raw and meta JSONL from NASA ADS
-│   ├── processed/          spaCy-processed JSONL
-│   ├── relevance/          TF-IDF scores and filtered abstracts
-│   ├── lm/                 perplexity results
-│   ├── lexicon/            Word2Vec model and learned lexicon
-│   ├── gold/               annotation sample, Label Studio task files, kappa results
-│   ├── triples/            extracted triples and summaries per run
-│   ├── matrix/             evidence matrices per run
-│   ├── retrieval/          retrieval evaluation
-│   └── eval/               entity and triple scoring results
-├── docs/
-│   ├── annotation_guideline.md
-│   ├── report.md           Phase 1 report
-│   ├── report_results.md   all reported numbers with source file references
-│   └── report.pdf          PDF build of the report
-├── app.py                  Streamlit evidence-matrix demo
-├── requirements.txt        pinned dependencies (Python 3.13)
-└── .streamlit/config.toml  Streamlit theme settings
+│   ├── domain.py             # Canonical vocabulary, gazetteer phrases, and head rules
+│   ├── fetch_corpus.py       # NASA ADS API harvester
+│   ├── preprocess.py         # spaCy tokenization, lemmatization, and indices regex
+│   ├── relevance.py          # TF-IDF nearest-seed cosine relevance filter
+│   ├── language_model.py     # MLE, Laplace, and Kneser-Ney n-gram language models
+│   ├── synonyms.py           # Word2Vec Skip-gram embeddings & WordNet anchor mapping
+│   ├── wsd.py                # IDF-weighted corpus-adapted Lesk WSD algorithm
+│   ├── entities.py           # Hybrid entity tagger (phrase matching + chunk heads + WSD)
+│   ├── effects.py            # Bounded dependency-path causal triple classifier
+│   ├── retrieval.py          # TF-IDF inverted index sentence retrieval engine
+│   ├── matrix.py             # Event x system evidence matrix compiler
+│   ├── gold.py               # Gold set sampling, Label Studio sync, kappa & adjudication
+│   ├── evaluate.py           # P/R/F1 scoring engine with bootstrap confidence intervals
+│   └── parsed.py             # Shared cached spaCy doc & sentence streaming utility
+├── app.py                    # Streamlit interactive evidence explorer application
+├── tests/                    # Pytest validation test suite
+├── data/                     # Versioned artifacts (corpus, triples, matrices, evaluation)
+├── docs/                     # Full technical report, results datasheet, and guidelines
+├── requirements.txt          # Frozen dependency specifications
+├── LICENSE                   # Open-source MIT License
+└── README.md                 # Project technical documentation
 ```
-
----
-
-## Installation
-
-> **Requires Python 3.13.** The `.venv` in the repo was built against 3.13; some pinned packages (e.g. `numpy 2.5.4`, `pandas 3.0.6`) require it.
-
-```bash
-git clone https://github.com/Sids15/space-nlp.git
-cd space-nlp
-
-python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # macOS / Linux
-
-pip install -r requirements.txt
-
-# Download WordNet data (required by wsd.py and gold.py)
-python -c "import nltk; nltk.download('wordnet')"
-```
-
-The spaCy model `en_core_web_sm` is included in `requirements.txt` as a direct URL dependency and installs automatically.
-
----
-
-## Running the Pipeline
-
-All scripts are in `src/`. Run them from the repository root with the virtual environment active.
-
-```bash
-# Stage 1: fetch corpus from NASA ADS (requires ADS_API_KEY in .env)
-python src/fetch_corpus.py --version v1
-
-# Stage 2: preprocess both corpora
-python src/preprocess.py data/corpus/corpus_v1.jsonl data/corpus/reference_v1.jsonl
-
-# Stage 3: relevance filter
-python src/relevance.py --version v1
-
-# Stage 4: language model perplexity
-python src/language_model.py --version v1
-
-# Stage 5: Word2Vec synonym grouper and learned acronyms
-python src/synonyms.py --version v1
-
-# Stage 6: entity tagging (full pipeline)
-python src/entities.py --version v1 --mode full
-
-# Stage 7: effect extraction (full pipeline)
-python src/effects.py --version v1
-
-# Stage 7: co-occurrence baseline
-python src/effects.py --version v1 --baseline
-
-# Stage 8: retrieval evaluation
-python src/retrieval.py evaluate
-
-# Stage 9: evidence matrix
-python src/matrix.py --version v1 --run full
-python src/matrix.py --version v1 --run cooccurrence_full
-
-# Stage 10: evaluate against the gold set
-python src/evaluate.py --gold data/gold/exports/test_gold.json --version v1
-```
-
-All stages are idempotent: re-running overwrites the previous output in the same versioned file.
-
----
-
-## Running the Demo App
-
-```bash
-.venv\Scripts\streamlit run app.py     # Windows
-# streamlit run app.py                 # macOS / Linux
-```
-
-The app loads `data/triples/full_v1.jsonl` and renders the 2×4 evidence matrix. Clicking a cell shows the supporting sentences with event and system spans highlighted, effect labels colour-coded, and ADS bibcode links. A run selector lets you switch between the full pipeline and the co-occurrence baseline in-session.
-
----
-
-## Evaluation Results
-
-Phase 1 numbers, all reproduced from files in this repository. Full tables are in `docs/report_results.md`; the methodology is in `docs/report.md`.
-
-### Corpus and Filtering
-
-| Item | Value |
-|------|-------|
-| Raw abstracts (NASA ADS, 2000–2026, 8 strata) | 3,116 |
-| After TF-IDF relevance filter (threshold 0.137) | 1,002 |
-| Astrophysics reference corpus (for LM / IDF) | 1,875 |
-
-### Language Model (in-domain trigram Kneser-Ney)
-
-| Train → Test | Perplexity |
-|---|---|
-| Space-weather → Space-weather | **103.9** |
-| Space-weather → Astrophysics | 279.9 |
-
-### Inter-Annotator Agreement (test overlap, 60 sentences)
-
-| Metric | Value |
-|---|---|
-| Cohen's κ — EVENT (token) | 0.744 |
-| Cohen's κ — SYSTEM (token) | 0.640 |
-| Cohen's κ — effect (pair) | 0.013 |
-| Span F1 — event (exact) | 0.562 |
-| Span F1 — system (exact) | 0.439 |
-
-Effect agreement did not meet the κ ≥ 0.6 gate; this is disclosed in the report.
-
-### Entity Extraction (test gold, 200 sentences, 339 mentions)
-
-| Run | Exact P | Exact R | Exact F1 | Partial F1 |
-|---|---|---|---|---|
-| **Full pipeline** | 0.534 | 0.563 | 0.548 | 0.769 |
-| Gazetteer only (baseline) | 0.425 | 0.428 | 0.426 | 0.691 |
-| spaCy NER (baseline) | 0.048 | 0.003 | 0.006 | 0.106 |
-
-Entity precision ≥ 0.75 (partial) — **Phase 1 gate passed**.
-
-### Triple Extraction (test gold, 44 labelled triples)
-
-| Run | P | R | F1 | F1 95% CI |
-|---|---|---|---|---|
-| **Full pipeline** | 0.439 | 0.409 | **0.424** | 0.276–0.554 |
-| Co-occurrence (baseline) | 0.242 | 0.545 | 0.336 | 0.222–0.440 |
-
-Full pipeline beats the co-occurrence baseline in 90.3% of bootstrap resamples — **Phase 1 gate passed**.
-
----
-
-## Annotation and Gold Set
-
-The gold set consists of 300 sentences sampled from the filtered corpus across 8 event × system strata (150 abstracts, seeded random, stratified round-robin). The sample is split into:
-
-- **Pilot / dev** — 30 sentences, annotated by both annotators for guideline calibration (κ ≥ 0.6 on all slots).
-- **Dev rest** — 70 sentences, used for rule tuning.
-- **Test** — 200 sentences, used once at the end.
-
-Annotation was done in [Label Studio](https://labelstud.io/) using the configuration in `docs/label_studio_config.xml`. The guideline is `docs/annotation_guideline.md`. Annotator exports are kept out of the repository (`.gitignore: data/gold/exports/`) to preserve annotator independence until double annotation is complete; the merged gold file is referenced only from `data/eval/results_*.json`.
-
-Inter-annotator kappa and span-F1 are computed with `python src/gold.py kappa A.json B.json`. Disagreements for the discussion round are listed with `python src/gold.py diff A.json B.json`. Final gold is produced with `python src/gold.py merge A.json B.json --out path/to/gold.json` (seeded random choice of annotator per disagreeing sentence, seed 42).
 
 ---
 
 ## License
 
-MIT License
+This project is licensed under the terms of the [MIT License](LICENSE).
 
+```text
 Copyright (c) 2026 Siddhant Bandi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -322,11 +287,4 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+```
